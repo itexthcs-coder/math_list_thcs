@@ -129,58 +129,192 @@ from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 def bt_dang1_p2_b1_c1_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
+    x, y = symbols('x y')
     
-    if dang == '1':
-        # Random tổng số chỗ ngồi phù hợp với phòng học (tổng ghế chia hết cho 2 và 3 có nghiệm nguyên dương)
-        tong_cho = random.choice([30, 32, 35, 36, 40, 42, 45])
-        pt = '2x + 3y = %s' % tong_cho
+    # Hàm phụ trợ format số thập phân hoặc phân số
+    def format_dec(val):
+        if float(val).is_integer():
+            return str(int(val))
+        val_float = float(val)
+        # làm tròn 2 chữ số thập phân nếu cần
+        s = str(round(val_float, 2)).replace('.', ',')
+        return s
     
-        # Đáp án đúng
-        da_dung = '$x, y$ bắt buộc phải là các số nguyên dương'
+    # Random hệ số a, b, c cho phương trình ax + by = c
+    # Mẫu gốc: 3x - 2y = 6
+    # a, b khác 0, c khác 0
+    while True:
+        a_val = random.choice([2, 3, 4, 5])
+        b_val = random.choice([-5, -4, -3, -2, 2, 3, 4, 5])
+        # Chọn nghiệm nguyên đẹp (x0, 0) và (0, y0)
+        # y = 0 => ax = c => c chia hết cho a
+        # x = 0 => by = c => c chia hết cho b
+        k = random.choice([1, 2, 3])
+        # lcm(a, |b|)
+        lcm_ab = math.lcm(abs(a_val), abs(b_val))
+        c_val = lcm_ab * k * random.choice([1, -1])
+        if c_val != 0:
+            break
     
-        # Các đáp án gây nhiễu
-        s1 = '$x, y$ nhận giá trị thực âm tuỳ ý'
-        s2 = '$x, y$ là các phân số bất kì'
-        s3 = 'Phương trình vô nghiệm vì $x, y$ phải bằng nhau'
+    # Phương trình: a*x + b*y = c
+    # Biểu diễn phương trình
+    pt_expr = a_val * x + b_val * y
     
-        du = [da_dung]
-        da = random.choice(du)
+    # Nghiệm cắt Ox: x0 = c/a, y = 0
+    x_ox = c_val // a_val
+    # Nghiệm cắt Oy: x = 0, y0 = c/b
+    y_oy = c_val // b_val
     
-        s = [s1, s2, s3]
-        das1 = random.choice(s)
-        s.remove(das1)
-        das2 = random.choice(s)
-        s.remove(das2)
-        das3 = random.choice(s)
+    # Rút y theo x: y = (c - ax) / b = (-a/b) x + (c/b)
+    slope = Rational(-a_val, b_val)
+    intercept = Rational(c_val, b_val)
     
-        # Câu hỏi
-        noidungcauhoi = ('''Một phòng học có $x$ dãy bàn đôi và $y$ dãy bàn ba. Biểu thức biểu diễn tổng số chỗ ngồi của phòng là $%s$. Khẳng định nào sau đây là đúng về $x$ và $y$?''' % pt)
+    # Chuỗi biểu diễn y theo x
+    y_expr = slope * x + intercept
+    y_str_true = latex(y_expr)
     
-        # Các đáp án
-        da_d = ('\\True ' + str(da))
-        da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
+    # Chuỗi hiển thị phương trình gốc
+    # Ví dụ 3x - 2y = 6
+    lhs_str = latex(pt_expr)
     
-        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
-        list_1 = [da_d, da_s1, da_s2, da_s3]
-        random.shuffle(list_1)
+    # Nội dung câu hỏi
+    noidungcauhoi = ('''Cho phương trình bậc nhất hai ẩn $%s = %s$.''' % (lhs_str, c_val))
     
-        # Nội dung lời giải
-        loigiai = ('''Vì $x$ và $y$ lần lượt đại diện cho số lượng dãy bàn đôi và số lượng dãy bàn ba trong một phòng học thực tế, nên số dãy bàn không thể là số âm hoặc phân số.\\\\
-    Hơn nữa, trong phòng học có cả hai loại dãy bàn nên $x, y \\in \\mathbb{N}^*$ (tức là $x, y$ bắt buộc phải là các số nguyên dương).\\\\
-    Do đó, khẳng định đúng là: $x, y$ bắt buộc phải là các số nguyên dương.''')
+    ############################################################################# Nhận biết #################################################
+    # a) Cặp số (x_ox; 0) là một nghiệm của phương trình.
+    # Đúng: (x_ox, 0)
+    # Sai: (x_ox + 1, 0) hoặc đảo thành (0, x_ox)
+    nb_da_1_d = '\\True Cặp số $(%s; 0)$ là một nghiệm của phương trình' % (x_ox)
+    nb_da_1_s = 'Cặp số $(%s; 0)$ là một nghiệm của phương trình' % (x_ox + 1)
+    list_nb_da_1 = [nb_da_1_d, nb_da_1_s]
+    nb_da_1 = random.choice(list_nb_da_1)
     
-    # Xuất câu trắc nghiệm
-    content = ('\\begin{minipage}{\\textwidth} \n' +
-               '\\begin{ex}\n' +
-               str(noidungcauhoi) + '\n\\choice \n' +
-               '{' + str(list_1[1]) + '}\n' +
-               '{' + str(list_1[2]) + '}\n' +
-               '{' + str(list_1[3]) + '}\n' +
-               '{' + str(list_1[0]) + '}\n' +
-               '\\loigiai{' + str(loigiai) + '}\n' +
-               '\\end{ex}\n \\end{minipage} \n\n')
+    # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+    list_nb_1 = [nb_da_1]
+    
+    # Nội dung lời giải
+    loigiai_nb_1 = ('''Thay $x = %s$ và $y = 0$ vào vế trái phương trình, ta được: $%s \\cdot (%s) + (%s) \\cdot 0 = %s = VP$. \\\\ Do đó, cặp số $(%s; 0)$ là một nghiệm của phương trình.''' % (x_ox, a_val, x_ox, b_val, a_val * x_ox, x_ox))
+    
+    # Đưa các lời giải vào danh sách lời giải
+    list_nb_2 = [loigiai_nb_1]
+    
+    # Kết hợp các đáp án và lời giải vào cùng một danh sách
+    combined_nb = list(zip(list_nb_1, list_nb_2))
+    random.shuffle(combined_nb)
+    shuffled_answers_nb, shuffled_solutions_nb = zip(*combined_nb)
+    
+    ############################################################################# Thông hiểu #################################################
+    # b) Cặp số (0; y_wrong) là một nghiệm của phương trình.
+    # Trong ảnh gốc: Cặp số (0; 3) là một nghiệm của phương trình (Sai vì nghiệm đúng là (0; -3))
+    # Đúng: (0, y_oy)
+    # Sai: (0, -y_oy)
+    th_da_1_d = '\\True Cặp số $(0; %s)$ là một nghiệm của phương trình' % (y_oy)
+    th_da_1_s = 'Cặp số $(0; %s)$ là một nghiệm của phương trình' % (-y_oy if y_oy != 0 else 1)
+    list_th_da_1 = [th_da_1_d, th_da_1_s]
+    th_da_1 = random.choice(list_th_da_1)
+    
+    list_th_1 = [th_da_1]
+    
+    loigiai_th_1 = ('''Thay $x = 0$ vào phương trình ta được: $%s \\cdot 0 + (%s)y = %s \\Leftrightarrow %sy = %s \\Leftrightarrow y = %s$. \\\\ Do đó cặp số $(0; %s)$ là nghiệm của phương trình, còn $(0; %s)$ không phải là nghiệm.''' % (a_val, b_val, c_val, b_val, c_val, y_oy, y_oy, -y_oy if y_oy != 0 else 1))
+    
+    list_th_2 = [loigiai_th_1]
+    
+    combined_th = list(zip(list_th_1, list_th_2))
+    random.shuffle(combined_th)
+    shuffled_answers_th, shuffled_solutions_th = zip(*combined_th)
+    
+    ############################################################################# Vận dụng #################################################
+    # c) Phương trình có nghiệm tổng quát là (x; mx + n) với x \in \mathbb{R} tuỳ ý.
+    # Đúng: y = slope*x + intercept
+    # Sai: đổi dấu hệ số góc hoặc sai hệ số tự do
+    slope_wrong = -slope
+    y_expr_wrong = slope_wrong * x + intercept
+    
+    vd_da_1_d = '\\True Phương trình có nghiệm tổng quát là $(x; %s)$ với $x \\in \\mathbb{R}$ tuỳ ý' % (y_str_true)
+    vd_da_1_s = 'Phương trình có nghiệm tổng quát là $(x; %s)$ với $x \\in \\mathbb{R}$ tuỳ ý' % (latex(y_expr_wrong))
+    list_vd_da_1 = [vd_da_1_d, vd_da_1_s]
+    vd_da_1 = random.choice(list_vd_da_1)
+    
+    list_vd_1 = [vd_da_1]
+    
+    loigiai_vd_1 = ('''Ta có: $%s = %s \\Leftrightarrow %sy = %s - %sx \\Leftrightarrow y = %s$. \\\\ Vậy nghiệm tổng quát của phương trình là $(x; %s)$ với $x \\in \\mathbb{R}$ tuỳ ý.''' % (lhs_str, c_val, b_val, c_val, a_val, y_str_true, y_str_true))
+    
+    list_vd_2 = [loigiai_vd_1]
+    
+    combined_vd = list(zip(list_vd_1, list_vd_2))
+    random.shuffle(combined_vd)
+    shuffled_answers_vd, shuffled_solutions_vd = zip(*combined_vd)
+    
+    ############################################################################# Vận dụng cao #################################################
+    # d) Đường thẳng biểu diễn tập nghiệm của phương trình cắt trục tung tại điểm (0; y_oy).
+    # Đúng: (0; y_oy)
+    # Sai: (y_oy; 0) hoặc (0; -y_oy)
+    vdc_da_1_d = '\\True Đường thẳng biểu diễn tập nghiệm của phương trình cắt trục tung tại điểm $(0; %s)$' % (y_oy)
+    vdc_da_1_s = 'Đường thẳng biểu diễn tập nghiệm của phương trình cắt trục tung tại điểm $(%s; 0)$' % (y_oy)
+    list_vdc_da_1 = [vdc_da_1_d, vdc_da_1_s]
+    vdc_da_1 = random.choice(list_vdc_da_1)
+    
+    list_vdc_1 = [vdc_da_1]
+    
+    loigiai_vdc_1 = ('''Giao điểm của đường thẳng biểu diễn tập nghiệm với trục tung có hoành độ $x = 0$. \\\\ Thay $x = 0$ vào phương trình $%s = %s$, ta được $y = %s$. \\\\ Vậy đường thẳng cắt trục tung tại điểm $(0; %s)$.''' % (lhs_str, c_val, y_oy, y_oy))
+    
+    list_vdc_2 = [loigiai_vdc_1]
+    
+    combined_vdc = list(zip(list_vdc_1, list_vdc_2))
+    random.shuffle(combined_vdc)
+    shuffled_answers_vdc, shuffled_solutions_vdc = zip(*combined_vdc)
+    
+    def count_true_answers(answers):
+        return sum('\\True' in ans for ans in answers)
+    
+    # Lặp đến khi đáp án có từ 1 đến 3 đúng
+    while True:
+        nb_da_1 = random.choice(list_nb_da_1)
+        th_da_1 = random.choice(list_th_da_1)
+        vd_da_1 = random.choice(list_vd_da_1)
+        vdc_da_1 = random.choice(list_vdc_da_1)
+    
+        answers = [nb_da_1, th_da_1, vd_da_1, vdc_da_1]
+        true_count = count_true_answers(answers)
+    
+        if 1 <= true_count <= 3:
+            break
+    
+    # Gán lại vào list
+    list_nb_1 = [nb_da_1]
+    list_th_1 = [th_da_1]
+    list_vd_1 = [vd_da_1]
+    list_vdc_1 = [vdc_da_1]
+    
+    combined_nb = list(zip(list_nb_1, list_nb_2))
+    combined_th = list(zip(list_th_1, list_th_2))
+    combined_vd = list(zip(list_vd_1, list_vd_2))
+    combined_vdc = list(zip(list_vdc_1, list_vdc_2))
+    
+    random.shuffle(combined_nb)
+    random.shuffle(combined_th)
+    random.shuffle(combined_vd)
+    random.shuffle(combined_vdc)
+    
+    shuffled_answers_nb, shuffled_solutions_nb = zip(*combined_nb)
+    shuffled_answers_th, shuffled_solutions_th = zip(*combined_th)
+    shuffled_answers_vd, shuffled_solutions_vd = zip(*combined_vd)
+    shuffled_answers_vdc, shuffled_solutions_vdc = zip(*combined_vdc)
+    
+    # Xuất câu hỏi với đáp án và lời giải đã được xáo trộn
+    content = ('\\begin{minipage}{\\textwidth} \n'
+               '\\begin{ex}\n' + str(noidungcauhoi) + '\n'
+               '\\choiceTFn \n'
+               '{' + str(shuffled_answers_nb[0]) + '}\n'
+               '{' + str(shuffled_answers_th[0]) + '}\n'
+               '{' + str(shuffled_answers_vd[0]) + '}\n'
+               '{' + str(shuffled_answers_vdc[0]) + '}\n'
+               '\\loigiai{ \n'
+               '\\begin{enumEX}[a)]{1} \n'
+               '\\item ' + str(shuffled_solutions_nb[0]) + '\n'
+               '\\item ' + str(shuffled_solutions_th[0]) + '\n'
+               '\\item ' + str(shuffled_solutions_vd[0]) + '\n'
+               '\\item ' + str(shuffled_solutions_vdc[0]) + '\n'
+               '\\end{enumEX}} \n'
+               '\\end{ex}\n \\end{minipage}\n\n')
     return content
