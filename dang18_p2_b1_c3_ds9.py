@@ -144,18 +144,18 @@ def bt_dang18_p2_b1_c3_ds9(self):
     noidungcauhoi = (f'''Để trang trí khuôn viên trường học, nhà trường xây dựng một bồn hoa hình tròn có diện tích $S = {S}\\text{{ m}}^2$ (lấy $\\pi \\approx 3,1416$). Xét tính đúng, sai của các khẳng định sau:''')
 
     ######################################################################## Nhận biết ############################################
-    nb_da_1_d = '\\True Bán kính $R$ của bồn hoa được tính theo công thức $R = \\sqrt{\\dfrac{S}{\pi}}$.'
-    nb_da_1_s = 'Bán kính $R$ của bồn hoa được tính theo công thức $R = \\dfrac{S}{\\sqrt{\pi}}$.'
+    nb_da_1_d = '\\True Bán kính $R$ của bồn hoa được tính theo công thức $R = \\sqrt{\\dfrac{S}{\\pi}}$.'
+    nb_da_1_s = 'Bán kính $R$ của bồn hoa được tính theo công thức $R = \\dfrac{S}{\\sqrt{\\pi}}$.'
     list_nb_da_1 = [nb_da_1_d, nb_da_1_s]
-    loigiai_nb_1_d = 'Từ công thức diện tích hình tròn $S = \\pi R^2$ ($R > 0$) suy ra $R^2 = \\dfrac{S}{\pi} \\Rightarrow R = \\sqrt{\\dfrac{S}{\pi}}$.'
-    loigiai_nb_1_s = 'Sai. Từ $S = \\pi R^2$ ($R > 0$) ta suy ra $R = \\sqrt{\\dfrac{S}{\pi}}$.'
+    loigiai_nb_1_d = 'Từ công thức diện tích hình tròn $S = \\pi R^2$ ($R > 0$) suy ra $R^2 = \\dfrac{S}{\\pi} \\Rightarrow R = \\sqrt{\\dfrac{S}{\\pi}}$.'
+    loigiai_nb_1_s = 'Sai. Từ $S = \\pi R^2$ ($R > 0$) ta suy ra $R = \\sqrt{\\dfrac{S}{\\pi}}$.'
 
     ######################################################################## Thông hiểu ############################################
-    th_da_1_d = '\\True Đường kính $d$ của bồn hoa được biểu diễn bởi công thức $d = 2\\sqrt{\\dfrac{S}{\pi}}$.'
-    th_da_1_s = 'Đường kính $d$ của bồn hoa được biểu diễn bởi công thức $d = \\sqrt{\\dfrac{2S}{\pi}}$.'
+    th_da_1_d = '\\True Đường kính $d$ của bồn hoa được biểu diễn bởi công thức $d = 2\\sqrt{\\dfrac{S}{\\pi}}$.'
+    th_da_1_s = 'Đường kính $d$ của bồn hoa được biểu diễn bởi công thức $d = \\sqrt{\\dfrac{2S}{\\pi}}$.'
     list_th_da_1 = [th_da_1_d, th_da_1_s]
-    loigiai_th_1_d = 'Vì đường kính gấp đôi bán kính nên $d = 2R = 2\\sqrt{\\dfrac{S}{\pi}}$.'
-    loigiai_th_1_s = 'Sai. Đường kính là $d = 2R = 2\\sqrt{\\dfrac{S}{\pi}}$ (hệ số $2$ nằm ngoài dấu căn).'
+    loigiai_th_1_d = 'Vì đường kính gấp đôi bán kính nên $d = 2R = 2\\sqrt{\\dfrac{S}{\\pi}}$.'
+    loigiai_th_1_s = 'Sai. Đường kính là $d = 2R = 2\\sqrt{\\dfrac{S}{\\pi}}$ (hệ số $2$ nằm ngoài dấu căn).'
 
     ######################################################################## Vận dụng ############################################
     vd_da_1_d = f'\\True Bán kính của bồn hoa (làm tròn đến chữ số thập phân thứ hai) là ${str_R}\\text{{ m}}$.'

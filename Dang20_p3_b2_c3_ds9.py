@@ -139,12 +139,12 @@ def bt_Dang20_p3_b2_c3_ds9(self):
         kq_str = str(ti_so)
 
         # Nội dung câu hỏi
-        noidungcauhoi = ('''Chu kì dao động nhỏ $T$ ($\text{s}$) của một con lắc đơn có chiều dài $\ell$ ($\text{m}$) được tính theo công thức $T = 2\pi\sqrt{\dfrac{\ell}{g}}$, trong đó $g$ ($\text{m/s}^2$) là gia tốc rơi tự do tại nơi đặt con lắc. Tại cùng một vị trí địa lí, con lắc đơn thứ nhất có chiều dài $\ell_1 = %s\text{ m}$ và con lắc đơn thứ hai có chiều dài $\ell_2 = %s\text{ m}$. Tính tỉ số chu kì $\dfrac{T_1}{T_2}$ của hai con lắc đó.'''
+        noidungcauhoi = ('''Chu kì dao động nhỏ $T$ ($\text{s}$) của một con lắc đơn có chiều dài $\ell$ ($\text{m}$) được tính theo công thức $T = 2\\pi\sqrt{\dfrac{\ell}{g}}$, trong đó $g$ ($\text{m/s}^2$) là gia tốc rơi tự do tại nơi đặt con lắc. Tại cùng một vị trí địa lí, con lắc đơn thứ nhất có chiều dài $\ell_1 = %s\text{ m}$ và con lắc đơn thứ hai có chiều dài $\ell_2 = %s\text{ m}$. Tính tỉ số chu kì $\dfrac{T_1}{T_2}$ của hai con lắc đó.'''
                          % (latex(l1), latex(l2)))
 
         # Nội dung lời giải
         loigiai = ('''Áp dụng quy tắc chia hai căn bậc hai, tỉ số chu kì của hai con lắc đơn là:
-                   $$\dfrac{T_1}{T_2} = \dfrac{2\pi\sqrt{\dfrac{\ell_1}{g}}}{2\pi\sqrt{\dfrac{\ell_2}{g}}} = \sqrt{\dfrac{\ell_1}{g} : \dfrac{\ell_2}{g}} = \sqrt{\dfrac{\ell_1}{\ell_2}} = \sqrt{\dfrac{%s}{%s}} = \sqrt{%s} = %s.$$'''
+                   $$\dfrac{T_1}{T_2} = \dfrac{2\\pi\sqrt{\dfrac{\ell_1}{g}}}{2\\pi\sqrt{\dfrac{\ell_2}{g}}} = \sqrt{\dfrac{\ell_1}{g} : \dfrac{\ell_2}{g}} = \sqrt{\dfrac{\ell_1}{\ell_2}} = \sqrt{\dfrac{%s}{%s}} = \sqrt{%s} = %s.$$'''
                    % (latex(l1), latex(l2), latex(ti_so**2), latex(ti_so)))
 
         # Đáp án
