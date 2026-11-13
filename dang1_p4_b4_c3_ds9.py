@@ -133,11 +133,11 @@ def bt_dang_p4_b4_c3_ds9(self):
         da_thuc = expand(nhi_thuc**3)
         kq = m + b
 
-        noidungcauhoi = ('''Rút gọn biểu thức: $A = %s + %s + \sqrt[3]{%s}$.'''
+        noidungcauhoi = ('''Rút gọn biểu thức: $A = %s + %s + \\sqrt[3]{%s}$.'''
                          % (latex(-a*x), m, latex(da_thuc)))
 
         loigiai = ('''Ta có $%s = (%s)^3$. \\
-        Do đó $A = %s + %s + \sqrt[3]{(%s)^3} = %s + %s + (%s) = %s$.'''
+        Do đó $A = %s + %s + \\sqrt[3]{(%s)^3} = %s + %s + (%s) = %s$.'''
                    % (latex(da_thuc), latex(nhi_thuc),
                       latex(-a*x), m, latex(nhi_thuc),
                       latex(-a*x), m, latex(nhi_thuc), kq))

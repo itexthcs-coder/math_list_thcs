@@ -142,27 +142,27 @@ def bt_dang1_p1_b2_c4_hh9(self):
         chon_canh = random.choice(['b', 'c'])
 
         if chon_canh == 'b':
-            du = [f'${b} = {a}\cdot \sin {B}$', f'${b} = {a}\cdot \cos {C}$']
+            du = [f"${b} = {a} \\cdot \\sin {B}$", f"${b} = {a} \\cdot \\cos {C}$"]
             da = random.choice(du)
             s = [
-                f'${b} = {a}\cdot \cos {B}$',
-                f'${b} = {a}\cdot \sin {C}$',
-                f'${b} = {a}\cdot \tan {B}$',
-                f'${b} = {a}\cdot \cot {B}$',
-                f'${b} = {c}\cdot \sin {B}$'
+                f"${b} = {a} \\cdot \\cos {B}$",
+                f"${b} = {a} \\cdot \\sin {C}$",
+                f"${b} = {a} \\cdot \\tan {B}$",
+                f"${b} = {a} \\cdot \\cot {B}$",
+                f"${b} = {c} \\cdot \\sin {B}$"
             ]
-            gt_dung = f'${b} = {a}\cdot \sin {B} = {a}\cdot \cos {C}$'
+            gt_dung = f"${b} = {a} \\cdot \\sin {B} = {a} \\cdot \\cos {C}$"
         else:
-            du = [f'${c} = {a}\cdot \sin {C}$', f'${c} = {a}\cdot \cos {B}$']
+            du = [f"${c} = {a} \\cdot \\sin {C}$", f"${c} = {a} \\cdot \\cos {B}$"]
             da = random.choice(du)
             s = [
-                f'${c} = {a}\cdot \cos {C}$',
-                f'${c} = {a}\cdot \sin {B}$',
-                f'${c} = {a}\cdot \tan {C}$',
-                f'${c} = {a}\cdot \cot {C}$',
-                f'${c} = {b}\cdot \sin {C}$'
+                f"${c} = {a} \\cdot \\cos {C}$",
+                f"${c} = {a} \\cdot \\sin {B}$",
+                f"${c} = {a} \\cdot \\tan {C}$",
+                f"${c} = {a} \\cdot \\cot {C}$",
+                f"${c} = {b} \\cdot \\sin {C}$"
             ]
-            gt_dung = f'${c} = {a}\cdot \sin {C} = {a}\cdot \cos {B}$'
+            gt_dung = f"${c} = {a} \\cdot \\sin {C} = {a} \\cdot \\cos {B}$"
 
         das1 = random.choice(s)
         s.remove(das1)
@@ -170,38 +170,42 @@ def bt_dang1_p1_b2_c4_hh9(self):
         s.remove(das2)
         das3 = random.choice(s)
 
-        hinh_tikz = f'''
-\\begin{{center}}
-\\begin{{tikzpicture}}[scale=0.8]
-\\coordinate ({A}) at (0,0);
-\\coordinate ({B}) at (4,0);
-\\coordinate ({C}) at (0,2.6);
-\\draw[thick] ({A}) -- ({B}) node[midway, below] {{${c}$}} -- ({C}) node[midway, above right] {{${a}$}} -- cycle node[midway, left] {{${b}$}};
-\\draw ({A}) rectangle ++(0.3,0.3);
-\\node[below left] at ({A}) {{${A}$}};
-\\node[below right] at ({B}) {{${B}$}};
-\\node[above left] at ({C}) {{${C}$}};
-\\end{{tikzpicture}}
-\\end{{center}}'''
+        hinh_tikz = (
+            r"\begin{center}" + "\n"
+            r"\begin{tikzpicture}[scale=0.8]" + "\n"
+            f"\\coordinate ({A}) at (0,0);\n"
+            f"\\coordinate ({B}) at (4,0);\n"
+            f"\\coordinate ({C}) at (0,2.6);\n"
+            f"\\draw[thick] ({A}) -- ({B}) node[midway, below] {{${c}$}} -- ({C}) node[midway, above right] {{${a}$}} -- cycle node[midway, left] {{${b}$}};\n"
+            f"\\draw ({A}) rectangle ++(0.3,0.3);\n"
+            f"\\node[below left] at ({A}) {{${A}$}};\n"
+            f"\\node[below right] at ({B}) {{${B}$}};\n"
+            f"\\node[above left] at ({C}) {{${C}$}};\n"
+            r"\end{tikzpicture}" + "\n"
+            r"\end{center}"
+        )
 
-        noidungcauhoi = f'''Cho tam giác ${A}{B}{C}$ vuông tại ${A}$ có cạnh huyền ${B}{C} = {a}$ và các cạnh góc vuông ${A}{C} = {b}$, ${A}{B} = {c}$ (như hình vẽ). Khẳng định nào sau đây là \\textbf{{đúng}}?{hinh_tikz}'''
+        noidungcauhoi = f"Cho tam giác ${A}{B}{C}$ vuông tại ${A}$ có cạnh huyền ${B}{C} = {a}$ và các cạnh góc vuông ${A}{C} = {b}$, ${A}{B} = {c}$ (như hình vẽ). Khẳng định nào sau đây là \\textbf{{đúng}}?{hinh_tikz}"
 
-        da_d = '\\True ' + str(da)
+        da_d = "\\True " + str(da)
         da_s1, da_s2, da_s3 = str(das1), str(das2), str(das3)
         list_1 = [da_d, da_s1, da_s2, da_s3]
         random.shuffle(list_1)
 
-        loigiai = f'''Theo Định lí 1: Trong tam giác vuông, mỗi cạnh góc vuông bằng cạnh huyền nhân với $\\sin$ góc đối hoặc nhân với $\\cos$ góc kề.\\\\
-Trong tam giác ${A}{B}{C}$ vuông tại ${A}$, ta có {gt_dung}.\\\\
-Vậy chọn đáp án {da}.'''
+        loigiai = (
+            f"Theo Định lí 1: Trong tam giác vuông, mỗi cạnh góc vuông bằng cạnh huyền nhân với $\\sin$ góc đối hoặc nhân với $\\cos$ góc kề.\\\\"
+            f"Trong tam giác ${A}{B}{C}$ vuông tại ${A}$, ta có {gt_dung}.\\\\"
+            f"Vậy chọn đáp án {da}."
+        )
 
     # Xuất câu trắc nghiệm
-    content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+    content = (r"\begin{minipage}{\textwidth}" + "\n"
+               r"\begin{ex}" + "\n" + str(noidungcauhoi) + r"\choice" + "\n"
+               "{" + str(list_1[1]) + "}\n"
+               "{" + str(list_1[2]) + "}\n"
+               "{" + str(list_1[3]) + "}\n"
+               "{" + str(list_1[0]) + "}\n"
+               r"\loigiai{" + str(loigiai) + "}\n"
+               r"\end{ex}" + "\n" + r"\end{minipage}" + "\n\n")
+
     return content

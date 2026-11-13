@@ -167,21 +167,21 @@ def bt_dang1_p4_b2_c3_ds9(self):
 
         # Nội dung câu hỏi
         noidungcauhoi = ('''Tính giá trị của các biểu thức sau:\\
-                         a) $A = \sqrt{%s} \cdot \sqrt{%s} - \sqrt{%s}(\sqrt{%s} - \sqrt{%s})$.\\
-                         b) $B = \sqrt{%s}(\sqrt{%s} + \sqrt{%s}) - \sqrt{%s}(\sqrt{%s} - \sqrt{%s})$.\\
-                         c) $C = \sqrt{%s^2 \cdot %s^2 \cdot %s^2} - \sqrt{%s} \cdot \sqrt{%s}$.'''
+                         a) $A = \\sqrt{%s} \\cdot \\sqrt{%s} - \\sqrt{%s}(\\sqrt{%s} - \\sqrt{%s})$.\\
+                         b) $B = \\sqrt{%s}(\\sqrt{%s} + \\sqrt{%s}) - \\sqrt{%s}(\\sqrt{%s} - \\sqrt{%s})$.\\
+                         c) $C = \\sqrt{%s^2 \\cdot %s^2 \\cdot %s^2} - \\sqrt{%s} \\cdot \\sqrt{%s}$.'''
                          % (latex(a1), latex(a2), latex(k2), latex(b1), latex(b2),
                             latex(k3), latex(c1), latex(c2), latex(k4), latex(d1), latex(d2),
                             latex(p1), latex(p2), latex(p3), latex(e1), latex(e2)))
 
         # Nội dung lời giải
         loigiai = ('''\\begin{enumEX}[a)]{1}
-                      \item Ta có:
-                      $$A = \sqrt{%s \cdot %s} - (\sqrt{%s \cdot %s} - \sqrt{%s \cdot %s}) = \sqrt{%s} - (\sqrt{%s} - \sqrt{%s}) = %s - (%s - %s) = %s.$$
-                      \item Ta có:
-                      $$B = (\sqrt{%s \cdot %s} + \sqrt{%s \cdot %s}) - (\sqrt{%s \cdot %s} - \sqrt{%s \cdot %s}) = (%s + %s) - (%s - %s) = %s - %s = %s.$$
-                      \item Ta có:
-                      $$C = \sqrt{%s^2} \cdot \sqrt{%s^2} \cdot \sqrt{%s^2} - \sqrt{%s \cdot %s} = %s \cdot %s \cdot %s - \sqrt{%s} = %s - %s = %s.$$
+                      \\item Ta có:
+                      $$A = \\sqrt{%s \\cdot %s} - (\\sqrt{%s \\cdot %s} - \\sqrt{%s \\cdot %s}) = \\sqrt{%s} - (\\sqrt{%s} - \\sqrt{%s}) = %s - (%s - %s) = %s.$$
+                      \\item Ta có:
+                      $$B = (\\sqrt{%s \\cdot %s} + \\sqrt{%s \\cdot %s}) - (\\sqrt{%s \\cdot %s} - \\sqrt{%s \\cdot %s}) = (%s + %s) - (%s - %s) = %s - %s = %s.$$
+                      \\item Ta có:
+                      $$C = \\sqrt{%s^2} \\cdot \\sqrt{%s^2} \\cdot \\sqrt{%s^2} - \\sqrt{%s \\cdot %s} = %s \\cdot %s \\cdot %s - \\sqrt{%s} = %s - %s = %s.$$
                       \\end{enumEX}'''
                    % (latex(a1), latex(a2), latex(k2), latex(b1), latex(k2), latex(b2),
                       latex(a1 * a2), latex(k2 * b1), latex(k2 * b2),

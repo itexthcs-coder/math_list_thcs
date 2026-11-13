@@ -141,30 +141,30 @@ def bt_dang18_p2_b1_c3_ds9(self):
     str_d_sai = f"{round(d_tron + 0.04, 2):.2f}".replace('.', ',')
 
     # Nội dung câu hỏi
-    noidungcauhoi = (f'''Để trang trí khuôn viên trường học, nhà trường xây dựng một bồn hoa hình tròn có diện tích $S = {S}\\text{{ m}}^2$ (lấy $\\pi \\approx 3,1416$). Xét tính đúng, sai của các khẳng định sau:''')
+    noidungcauhoi = (f"Để trang trí khuôn viên trường học, nhà trường xây dựng một bồn hoa hình tròn có diện tích $S = {S}\\text{{ m}}^2$ (lấy $\\pi \\approx 3,1416$). Xét tính đúng, sai của các khẳng định sau:")
 
-    ######################################################################## Nhận biết ############################################
-    nb_da_1_d = '\\True Bán kính $R$ của bồn hoa được tính theo công thức $R = \\sqrt{\\dfrac{S}{\\pi}}$.'
-    nb_da_1_s = 'Bán kính $R$ của bồn hoa được tính theo công thức $R = \\dfrac{S}{\\sqrt{\\pi}}$.'
+    # ######################################################################## Nhận biết ############################################
+    nb_da_1_d = r'\True Bán kính $R$ của bồn hoa được tính theo công thức $R = \sqrt{\dfrac{S}{\pi}}.$'
+    nb_da_1_s = 'Bán kính $R$ của bồn hoa được tính theo công thức $R = \dfrac{S}{\sqrt{\pi}}.$'
     list_nb_da_1 = [nb_da_1_d, nb_da_1_s]
-    loigiai_nb_1_d = 'Từ công thức diện tích hình tròn $S = \\pi R^2$ ($R > 0$) suy ra $R^2 = \\dfrac{S}{\\pi} \\Rightarrow R = \\sqrt{\\dfrac{S}{\\pi}}$.'
-    loigiai_nb_1_s = 'Sai. Từ $S = \\pi R^2$ ($R > 0$) ta suy ra $R = \\sqrt{\\dfrac{S}{\\pi}}$.'
+    loigiai_nb_1_d = 'Từ công thức diện tích hình tròn $S = \pi R^2$ ($R > 0$) suy ra $R^2 = \dfrac{S}{\pi} \Rightarrow R = \sqrt{\dfrac{S}{\pi}}.$'
+    loigiai_nb_1_s = 'Sai. Từ $S = \pi R^2$ ($R > 0$) ta suy ra $R = \sqrt{\dfrac{S}{\pi}}.$'
 
-    ######################################################################## Thông hiểu ############################################
-    th_da_1_d = '\\True Đường kính $d$ của bồn hoa được biểu diễn bởi công thức $d = 2\\sqrt{\\dfrac{S}{\\pi}}$.'
-    th_da_1_s = 'Đường kính $d$ của bồn hoa được biểu diễn bởi công thức $d = \\sqrt{\\dfrac{2S}{\\pi}}$.'
+    # ######################################################################## Thông hiểu ############################################
+    th_da_1_d = r'\True Đường kính $d$ của bồn hoa được biểu diễn bởi công thức $d = 2\sqrt{\dfrac{S}{\pi}}.$'
+    th_da_1_s = 'Đường kính $d$ của bồn hoa được biểu diễn bởi công thức $d = \sqrt{\dfrac{2S}{\pi}}.$'
     list_th_da_1 = [th_da_1_d, th_da_1_s]
-    loigiai_th_1_d = 'Vì đường kính gấp đôi bán kính nên $d = 2R = 2\\sqrt{\\dfrac{S}{\\pi}}$.'
-    loigiai_th_1_s = 'Sai. Đường kính là $d = 2R = 2\\sqrt{\\dfrac{S}{\\pi}}$ (hệ số $2$ nằm ngoài dấu căn).'
+    loigiai_th_1_d = 'Vì đường kính gấp đôi bán kính nên $d = 2R = 2\sqrt{\dfrac{S}{\pi}}.$'
+    loigiai_th_1_s = 'Sai. Đường kính là $d = 2R = 2\sqrt{\dfrac{S}{\pi}}$ (hệ số $2$ nằm ngoài dấu căn).'
 
-    ######################################################################## Vận dụng ############################################
+    # ######################################################################## Vận dụng ############################################
     vd_da_1_d = f'\\True Bán kính của bồn hoa (làm tròn đến chữ số thập phân thứ hai) là ${str_R}\\text{{ m}}$.'
     vd_da_1_s = f'Bán kính của bồn hoa (làm tròn đến chữ số thập phân thứ hai) là ${str_R_sai}\\text{{ m}}$.'
     list_vd_da_1 = [vd_da_1_d, vd_da_1_s]
     loigiai_vd_1_d = f'Ta có $R = \\sqrt{{\\dfrac{{{S}}}{{3,1416}}}} \\approx {R_val:.4f}\\dots \\approx {str_R}\\text{{ m}}$.'
     loigiai_vd_1_s = f'Sai. Ta có $R = \\sqrt{{\\dfrac{{{S}}}{{3,1416}}}} \\approx {R_val:.4f}\\dots \\approx {str_R}\\text{{ m}}$.'
 
-    ######################################################################## Vận dụng cao ############################################
+    # ######################################################################## Vận dụng cao ############################################
     vdc_da_1_d = f'\\True Với độ chính xác $0,005$, đường kính của bồn hoa ước lượng khoảng ${str_d}\\text{{ m}}$.'
     vdc_da_1_s = f'Với độ chính xác $0,005$, đường kính của bồn hoa ước lượng khoảng ${str_d_sai}\\text{{ m}}$.'
     list_vdc_da_1 = [vdc_da_1_d, vdc_da_1_s]

@@ -133,15 +133,15 @@ def bt_dang1_p3_b4_c3_ds9(self):
         kq = m + c
         kq_str = str(kq)
 
-        noidungcauhoi = ('''Rút gọn biểu thức $P = -x + %s + \sqrt[3]{%s}$ ta được giá trị bằng bao nhiêu?'''
+        noidungcauhoi = ('''Rút gọn biểu thức $P = -x + %s + \\sqrt[3]{%s}$ ta được giá trị bằng bao nhiêu?'''
                          % (m, latex(da_thuc)))
 
         loigiai = ('''Ta có $%s = (%s)^3$. \\
-        Do đó $P = -x + %s + \sqrt[3]{(%s)^3} = -x + %s + (%s) = %s$.'''
+        Do đó $P = -x + %s + \\sqrt[3]{(%s)^3} = -x + %s + (%s) = %s$.'''
                    % (latex(da_thuc), latex(nhi_thuc),
                       m, latex(nhi_thuc), m, latex(nhi_thuc), kq_str))
 
-        dapan = '\shortans[0]{$%s$}\n' % (kq_str)
+        dapan = '\\shortans[0]{$%s$}\n' % (kq_str)
 
     content = ('\\begin{minipage}{\\textwidth} \n'
                '\\begin{ex}\n' + str(noidungcauhoi) + str(dapan) + '\\loigiai{ \n' + str(loigiai) + '}\n'

@@ -129,51 +129,46 @@ from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 def bt_dang1_p1_b2_c3_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    if dang == '1':
-        bt1, bt2 = random.choice([('A', 'B'), ('M', 'N'), ('X', 'Y'), ('P', 'Q')])
-        
-        # Các đáp án trắc nghiệm
-        du = ['$\\sqrt{%s \\cdot %s} = \\sqrt{%s} \\cdot \\sqrt{%s}$' % (bt1, bt2, bt1, bt2)]
-        da = random.choice(du)
-        s = [
-            '$\\sqrt{%s + %s} = \\sqrt{%s} + \\sqrt{%s}$' % (bt1, bt2, bt1, bt2),
-            '$\\sqrt{%s - %s} = \\sqrt{%s} - \\sqrt{%s}$' % (bt1, bt2, bt1, bt2),
-            '$\\sqrt{%s \\cdot %s} = %s \\cdot %s$' % (bt1, bt2, bt1, bt2),
-            '$\\sqrt{%s \\cdot %s} = \\dfrac{\\sqrt{%s}}{\\sqrt{%s}}$' % (bt1, bt2, bt1, bt2)
-        ]
-        
-        das1 = random.choice(s)
-        s.remove(das1)
-        das2 = random.choice(s)
-        s.remove(das2)
-        das3 = random.choice(s)
-        
-        # Câu hỏi
-        noidungcauhoi = ('''Với hai biểu thức $%s, %s$ không âm, khẳng định nào sau đây là đúng?''' % (bt1, bt2))
-        
-        # Các đáp án
-        da_d = ('\\True ' + str(da))
-        da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-        
-        list_1 = [da_d, da_s1, da_s2, da_s3]
-        random.shuffle(list_1)
-        
-        # Nội dung lời giải
-        loigiai = ('''Theo quy tắc khai căn bậc hai của một tích: Với hai biểu thức $%s, %s$ không âm, ta có $\\sqrt{%s \\cdot %s} = \\sqrt{%s} \\cdot \\sqrt{%s}$.'''
-                   % (bt1, bt2, bt1, bt2, bt1, bt2))
+    bt1, bt2 = random.choice([('A', 'B'), ('M', 'N'), ('X', 'Y'), ('P', 'Q')])
+    
+    # Các đáp án trắc nghiệm
+    da = f"\\sqrt{{{bt1} \\cdot {bt2}}} = \\sqrt{{{bt1}}} \\cdot \\sqrt{{{bt2}}}"
+    s = [
+        f"\\sqrt{{{bt1} + {bt2}}} = \\sqrt{{{bt1}}} + \\sqrt{{{bt2}}}",
+        f"\\sqrt{{{bt1} - {bt2}}} = \\sqrt{{{bt1}}} - \\sqrt{{{bt2}}}",
+        f"\\sqrt{{{bt1} \\cdot {bt2}}} = {bt1} \\cdot {bt2}",
+        f"\\sqrt{{{bt1} \\cdot {bt2}}} = \\dfrac{{\\sqrt{{{bt1}}}}}{{\\sqrt{{{bt2}}}}}"
+    ]
+    
+    das1 = random.choice(s)
+    s.remove(das1)
+    das2 = random.choice(s)
+    s.remove(das2)
+    das3 = random.choice(s)
+    
+    # Câu hỏi
+    noidungcauhoi = f"Với hai biểu thức ${bt1}, {bt2}$ không âm, khẳng định nào sau đây là đúng?"
+    
+    # Các đáp án
+    da_d = "\\True " + da
+    da_s1 = str(das1)
+    da_s2 = str(das2)
+    da_s3 = str(das3)
+    
+    list_1 = [da_d, da_s1, da_s2, da_s3]
+    random.shuffle(list_1)
+    
+    # Nội dung lời giải
+    loigiai = f"Theo quy tắc khai căn bậc hai của một tích: Với hai biểu thức ${bt1}, {bt2}$ không âm, ta có $\\sqrt{{{bt1} \\cdot {bt2}}} = \\sqrt{{{bt1}}} \\cdot \\sqrt{{{bt2}}}.$"
 
     # Xuất câu trắc nghiệm
-    content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+    content = (r"\begin{minipage}{\textwidth}" + "\n"
+               r"\begin{ex}" + "\n" + str(noidungcauhoi) + r"\choice" + "\n"
+               "{" + str(list_1[1]) + "}\n"
+               "{" + str(list_1[2]) + "}\n"
+               "{" + str(list_1[3]) + "}\n"
+               "{" + str(list_1[0]) + "}\n"
+               r"\loigiai{" + str(loigiai) + "}\n"
+               r"\end{ex}" + "\n" + r"\end{minipage}" + "\n\n")
 
     return content
