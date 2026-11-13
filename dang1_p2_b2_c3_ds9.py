@@ -148,31 +148,31 @@ def bt_dang1_p2_b2_c3_ds9(self):
         val_B = k2 * (m2 - 1)
         val_2A_B = 2 * val_A - val_B
 
-        noidungcauhoi = ('''Cho hai biểu thức $A = \sqrt{%s} \cdot \sqrt{%s}$ và $B = \sqrt{%s}(\sqrt{%s} - \sqrt{%s})$. Xét tính đúng sai của các mệnh đề sau:'''
+        noidungcauhoi = ('''Cho hai biểu thức $A = \\sqrt{%s} \\cdot \\sqrt{%s}$ và $B = \\sqrt{%s}(\\sqrt{%s} - \\sqrt{%s})$. Xét tính đúng sai của các mệnh đề sau:'''
                          % (latex(so_a1), latex(so_a2), latex(k2), latex(b1), latex(b2)))
 
         nb_da_1_d = '\\True Giá trị của biểu thức $A$ bằng $%s$' % (latex(val_A))
         nb_da_1_s = 'Giá trị của biểu thức $A$ bằng $%s$' % (latex(val_A + k1))
         list_nb_da_1 = [nb_da_1_d, nb_da_1_s]
-        loigiai_nb_1 = ('''Ta có $A = \sqrt{%s} \cdot \sqrt{%s} = \sqrt{%s \cdot %s} = \sqrt{%s} = %s$.'''
+        loigiai_nb_1 = ('''Ta có $A = \\sqrt{%s} \\cdot \\sqrt{%s} = \\sqrt{%s \\cdot %s} = \\sqrt{%s} = %s$.'''
                         % (latex(so_a1), latex(so_a2), latex(so_a1), latex(so_a2), latex(so_a1 * so_a2), latex(val_A)))
 
-        th_da_1_d = '\\True Biểu thức $B$ sau khi nhân phân phối có dạng $\sqrt{%s} - \sqrt{%s}$' % (latex(k2 * b1), latex(k2 * b2))
-        th_da_1_s = 'Biểu thức $B$ sau khi nhân phân phối có dạng $\sqrt{%s} - \sqrt{%s}$' % (latex(b1), latex(b2))
+        th_da_1_d = '\\True Biểu thức $B$ sau khi nhân phân phối có dạng $\\sqrt{%s} - \\sqrt{%s}$' % (latex(k2 * b1), latex(k2 * b2))
+        th_da_1_s = 'Biểu thức $B$ sau khi nhân phân phối có dạng $\\sqrt{%s} - \\sqrt{%s}$' % (latex(b1), latex(b2))
         list_th_da_1 = [th_da_1_d, th_da_1_s]
-        loigiai_th_1 = ('''Áp dụng quy tắc nhân hai căn bậc hai, ta có $B = \sqrt{%s} \cdot \sqrt{%s} - \sqrt{%s} \cdot \sqrt{%s} = \sqrt{%s} - \sqrt{%s}$.'''
+        loigiai_th_1 = ('''Áp dụng quy tắc nhân hai căn bậc hai, ta có $B = \\sqrt{%s} \\cdot \\sqrt{%s} - \\sqrt{%s} \\cdot \\sqrt{%s} = \\sqrt{%s} - \\sqrt{%s}$.'''
                         % (latex(k2), latex(b1), latex(k2), latex(b2), latex(k2 * b1), latex(k2 * b2)))
 
         vd_da_1_d = '\\True Giá trị của biểu thức $B$ bằng $%s$' % (latex(val_B))
         vd_da_1_s = 'Giá trị của biểu thức $B$ bằng $%s$' % (latex(val_B + k2))
         list_vd_da_1 = [vd_da_1_d, vd_da_1_s]
-        loigiai_vd_1 = ('''Ta có $B = \sqrt{%s} - \sqrt{%s} = %s - %s = %s$.'''
+        loigiai_vd_1 = ('''Ta có $B = \\sqrt{%s} - \\sqrt{%s} = %s - %s = %s$.'''
                         % (latex(k2 * b1), latex(k2 * b2), latex(k2 * m2), latex(k2), latex(val_B)))
 
         vdc_da_1_d = '\\True Giá trị của biểu thức $2A - B$ bằng $%s$' % (latex(val_2A_B))
         vdc_da_1_s = 'Giá trị của biểu thức $2A - B$ bằng $%s$' % (latex(val_2A_B + 4))
         list_vdc_da_1 = [vdc_da_1_d, vdc_da_1_s]
-        loigiai_vdc_1 = ('''Thay $A = %s$ và $B = %s$, ta được $2A - B = 2 \cdot %s - %s = %s$.'''
+        loigiai_vdc_1 = ('''Thay $A = %s$ và $B = %s$, ta được $2A - B = 2 \\cdot %s - %s = %s$.'''
                          % (latex(val_A), latex(val_B), latex(val_A), latex(val_B), latex(val_2A_B)))
 
         def count_true_answers(answers):

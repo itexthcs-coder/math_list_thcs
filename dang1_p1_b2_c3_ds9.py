@@ -135,13 +135,13 @@ def bt_dang1_p1_b2_c3_ds9(self):
         bt1, bt2 = random.choice([('A', 'B'), ('M', 'N'), ('X', 'Y'), ('P', 'Q')])
         
         # Các đáp án trắc nghiệm
-        du = ['$\sqrt{%s \cdot %s} = \sqrt{%s} \cdot \sqrt{%s}$' % (bt1, bt2, bt1, bt2)]
+        du = ['$\\sqrt{%s \\cdot %s} = \\sqrt{%s} \\cdot \\sqrt{%s}$' % (bt1, bt2, bt1, bt2)]
         da = random.choice(du)
         s = [
-            '$\sqrt{%s + %s} = \sqrt{%s} + \sqrt{%s}$' % (bt1, bt2, bt1, bt2),
-            '$\sqrt{%s - %s} = \sqrt{%s} - \sqrt{%s}$' % (bt1, bt2, bt1, bt2),
-            '$\sqrt{%s \cdot %s} = %s \cdot %s$' % (bt1, bt2, bt1, bt2),
-            '$\sqrt{%s \cdot %s} = \dfrac{\sqrt{%s}}{\sqrt{%s}}$' % (bt1, bt2, bt1, bt2)
+            '$\\sqrt{%s + %s} = \\sqrt{%s} + \\sqrt{%s}$' % (bt1, bt2, bt1, bt2),
+            '$\\sqrt{%s - %s} = \\sqrt{%s} - \\sqrt{%s}$' % (bt1, bt2, bt1, bt2),
+            '$\\sqrt{%s \\cdot %s} = %s \\cdot %s$' % (bt1, bt2, bt1, bt2),
+            '$\\sqrt{%s \\cdot %s} = \\dfrac{\\sqrt{%s}}{\\sqrt{%s}}$' % (bt1, bt2, bt1, bt2)
         ]
         
         das1 = random.choice(s)
@@ -163,7 +163,7 @@ def bt_dang1_p1_b2_c3_ds9(self):
         random.shuffle(list_1)
         
         # Nội dung lời giải
-        loigiai = ('''Theo quy tắc khai căn bậc hai của một tích: Với hai biểu thức $%s, %s$ không âm, ta có $\sqrt{%s \cdot %s} = \sqrt{%s} \cdot \sqrt{%s}$.'''
+        loigiai = ('''Theo quy tắc khai căn bậc hai của một tích: Với hai biểu thức $%s, %s$ không âm, ta có $\\sqrt{%s \\cdot %s} = \\sqrt{%s} \\cdot \\sqrt{%s}$.'''
                    % (bt1, bt2, bt1, bt2, bt1, bt2))
 
     # Xuất câu trắc nghiệm
