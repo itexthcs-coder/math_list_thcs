@@ -143,12 +143,12 @@ def bt_dang1_p3_b2_c3_ds9(self):
         kq_str = str(kq)
 
         # Nội dung câu hỏi
-        noidungcauhoi = ('''Tính giá trị của biểu thức $A = \sqrt{%s}(\sqrt{%s} - \sqrt{%s} + \sqrt{%s})$.'''
+        noidungcauhoi = ('''Tính giá trị của biểu thức $A = \\sqrt{%s}(\\sqrt{%s} - \\sqrt{%s} + \\sqrt{%s})$.'''
                          % (latex(k), latex(a1), latex(a2), latex(a3)))
 
         # Nội dung lời giải
         loigiai = ('''Ta có:
-                   $$A = \sqrt{%s \cdot %s} - \sqrt{%s \cdot %s} + \sqrt{%s \cdot %s} = \sqrt{%s} - \sqrt{%s} + \sqrt{%s} = %s - %s + %s = %s.$$'''
+                   $$A = \\sqrt{%s \\cdot %s} - \\sqrt{%s \\cdot %s} + \\sqrt{%s \\cdot %s} = \\sqrt{%s} - \\sqrt{%s} + \\sqrt{%s} = %s - %s + %s = %s.$$'''
                    % (latex(k), latex(a1), latex(k), latex(a2), latex(k), latex(a3),
                       latex((k*m)**2), latex((k*n)**2), latex((k*p)**2),
                       latex(k*m), latex(k*n), latex(k*p), latex(kq)))
