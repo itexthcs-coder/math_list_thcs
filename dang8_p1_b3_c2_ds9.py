@@ -127,49 +127,57 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang8_p1_b3_c2_ds9(self):
+def bt_Dang8_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        a = randint(2, 7)
-        k = random.choice([-6, -5, -4, -3, -2, 2, 3, 4, 5, 6])
-        b = a * k
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        a = random.choice([-6, -5, -4, -3, -2])
+        nghiem = random.choice([-5, -4, -3, -2, 2, 3, 4, 5])
+        c = a * nghiem
         
-        du = [f'$x < {k}$']
+        dau_de = random.choice(['\\ge', '\\le', '>', '<'])
+        dau_kq = {'<': '>', '>': '<', '\\le': '\\ge', '\\ge': '\\le'}[dau_de]
+
+        du = [f'$x {dau_kq} {nghiem}$']
         da = random.choice(du)
         s = [
-            f'$x > {k}$',
-            f'$x < {b * a}$',
-            f'$x > {b * a}$',
-            f'$x \\le {k}$'
+            f'$x {dau_de} {nghiem}$',
+            f'$x {dau_kq} {-nghiem}$',
+            f'$x {dau_de} {-nghiem}$',
         ]
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = ('''Chia cả hai vế của bất phương trình $%sx < %s$ cho $%s$, ta thu được bất phương trình nào?'''
-                         % (a, b, a))
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Từ bất phương trình $%sx %s %s$, để tìm nghiệm ta chia cả hai vế cho số âm $%s$ và được kết quả đúng là:'
+                        %(a, dau_de, c, a
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Vì $%s > 0$ nên khi chia cả hai vế của bất phương trình $%sx < %s$ cho $%s$, bất đẳng thức giữ nguyên chiều:
-        $$\\dfrac{%sx}{%s} < \\dfrac{%s}{%s} \\Leftrightarrow x < %s.$$'''
-        % (a, a, b, a, a, a, b, a, k))
-    
+        # Nội dung lời giải
+        loigiai=('Khi chia cả hai vế của bất phương trình $%sx %s %s$ cho số âm $%s$, ta phải đổi chiều bất đẳng thức: '
+                 '$$x %s \\frac{%s}{%s} \\Leftrightarrow x %s %s.$$ \n'
+                %(a, dau_de, c, a, dau_kq, c, a, dau_kq, nghiem
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

@@ -127,56 +127,60 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang4_p1_b3_c2_ds9(self):
+def bt_Dang4_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        a1 = random.choice([-5, -3, -2, 2, 3, 5])
-        b1 = random.choice([-8, -4, -1, 1, 4, 8])
-        a2 = random.choice([-4, -2, 2, 4])
-        b2 = random.choice([-7, -3, 3, 7])
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        a1 = random.choice([3, 4, 5, 6, 7])
+        b1 = random.choice([-9, -7, -5, -3, -1, 1, 3, 5, 7, 9])
+        a2 = random.choice([-4, -3, -2, 2, 8])
+        b2 = random.choice([-8, -6, -4, -2, 2, 4, 6, 8])
+        dau = random.choice(['<', '>', '\\le', '\\ge'])
+
         vt = a1*x + b1
         vp = a2*x + b2
-        dau = random.choice(['<', '>', '\\le', '\\ge'])
-        chon_ve = random.choice(['trai', 'phai'])
-    
-        if chon_ve == 'trai':
-            bt_hoi = latex(vt)
-            da = 'Vế trái của bất phương trình'
-            s = ['Vế phải của bất phương trình', 'Nghiệm của bất phương trình', 'Hệ số tự do của bất phương trình', 'Đa thức bậc hai']
-            giai_thich = 'bên trái'
+        chon_ve = random.choice(['vế trái', 'vế phải'])
+
+        if chon_ve == 'vế trái':
+            du = [f'${latex(vt)}$']
+            s = [f'${latex(vp)}$', f'${latex(vt - vp)}$', f'${latex(a1*x)}$']
         else:
-            bt_hoi = latex(vp)
-            da = 'Vế phải của bất phương trình'
-            s = ['Vế trái của bất phương trình', 'Nghiệm của bất phương trình', 'Hệ số tự do của bất phương trình', 'Đa thức bậc hai']
-            giai_thich = 'bên phải'
-    
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+            du = [f'${latex(vp)}$']
+            s = [f'${latex(vt)}$', f'${latex(vt - vp)}$', f'${latex(a2*x)}$']
+
+        da = random.choice(du)
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = ('''Trong bất phương trình $%s %s %s$, biểu thức $%s$ được gọi là'''
-                         % (latex(vt), dau, latex(vp), bt_hoi))
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Cho bất phương trình $%s %s %s$. Biểu thức nào sau đây là %s của bất phương trình đã cho?'
+                        %(latex(vt), dau, latex(vp), chon_ve
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Trong bất phương trình $%s %s %s$, biểu thức $%s$ nằm ở %s dấu bất đẳng thức nên được gọi là %s.'''
-        % (latex(vt), dau, latex(vp), bt_hoi, giai_thich, da.lower()))
-    
+        # Nội dung lời giải
+        loigiai=('Trong bất phương trình $%s %s %s$, biểu thức nằm bên trái dấu bất đẳng thức gọi là vế trái ($%s$), biểu thức nằm bên phải dấu bất đẳng thức gọi là vế phải ($%s$).\\n'
+                 'Vậy %s của bất phương trình đã cho là %s. \n'
+                %(latex(vt), dau, latex(vp), latex(vt), latex(vp), chon_ve, da
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

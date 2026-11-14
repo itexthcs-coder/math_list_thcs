@@ -127,49 +127,65 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang9_p1_b3_c2_ds9(self):
+def bt_Dang9_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        m = randint(2, 6)
-        c = randint(2, 7)
-        kq = -m * c
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        a = random.choice([2, 3, 4, 5, 6, 7])
+        b = random.choice([-11, -9, -7, -5, -3, -1, 1, 3, 5, 7, 9, 11])
+        dau = random.choice(['<', '>', '\\le', '\\ge'])
+        dau_nguoc = {'<': '>', '>': '<', '\\le': '\\ge', '\\ge': '\\le'}[dau]
         
-        du = [f'$x < {kq}$']
+        nghiem = Rational(-b, a)
+        nghiem_sai1 = Rational(b, a)
+        nghiem_sai2 = Rational(-a, b)
+
+        du = [f'$x {dau} {latex(nghiem)}$']
         da = random.choice(du)
         s = [
-            f'$x > {kq}$',
-            f'$x < {-kq}$',
-            f'$x > {-kq}$',
-            f'$x \\le {kq}$'
+            f'$x {dau_nguoc} {latex(nghiem)}$',
+            f'$x {dau} {latex(nghiem_sai1)}$',
+            f'$x {dau_nguoc} {latex(nghiem_sai1)}$',
+            f'$x {dau} {latex(nghiem_sai2)}$',
         ]
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = ('''Nhân cả hai vế của bất phương trình $-\\dfrac{1}{%s}x > %s$ với $-%s$, ta được bất phương trình nào?'''
-                         % (m, c, m))
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Nghiệm của bất phương trình $%s %s 0$ là:'
+                        %(latex(a*x + b), dau
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Vì $-%s < 0$ nên khi nhân cả hai vế của bất phương trình với $-%s$, ta phải \\textbf{đổi chiều} bất đẳng thức:
-        $$\\left(-\\dfrac{1}{%s}x\\right) \\cdot (-%s) < %s \\cdot (-%s) \\Leftrightarrow x < %s.$$'''
-        % (m, m, m, m, c, m, kq))
-    
+        # Nội dung lời giải
+        loigiai=('Ta có: '
+                 '\\begin{align*} '
+                 '%s &%s 0 \\\\ '
+                 '%sx &%s %s \\\\ '
+                 'x &%s %s \\quad (\\text{vì } %s > 0). '
+                 '\\end{align*} '
+                 'Vậy nghiệm của bất phương trình là $x %s %s$. \n'
+                %(latex(a*x + b), dau, a, dau, -b, dau, latex(nghiem), a, dau, latex(nghiem)
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

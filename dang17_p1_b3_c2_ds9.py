@@ -127,60 +127,68 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang17_p1_b3_c2_ds9(self):
+def bt_Dang17_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        # (x - a)(x + a) >= x^2 - bx + c
-        a = randint(2, 5)
-        b = randint(2, 6)
-        ng = random.choice([-3, -2, -1, 1, 2, 3, 4])
-        # x^2 - a^2 >= x^2 - bx + c <=> bx >= c + a^2 => c = b*ng - a^2
-        c = b*ng - a**2
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        m = random.choice([2, 3, 4, 5])
+        k = random.choice([2, 3, 4])
+        nghiem = random.choice([-4, -3, -2, -1, 1, 2, 3, 4])
+        c = k * nghiem - m**2
         
-        vp_str = latex(x**2 - b*x + c)
-        
-        du = [f'$x \\ge {ng}$']
+        dau = random.choice(['\\ge', '\\le', '>', '<'])
+        dau_nguoc = {'<': '>', '>': '<', '\\le': '\\ge', '\\ge': '\\le'}[dau]
+
+        vt_str = f"(x - {m})(x + {m})"
+        vp = x**2 - k*x + c
+
+        du = [f'$x {dau} {nghiem}$']
         da = random.choice(du)
         s = [
-            f'$x \\le {ng}$',
-            f'$x \\ge {-ng}$',
-            f'$x \\le {-ng}$',
-            f'$x > {ng}$'
+            f'$x {dau_nguoc} {nghiem}$',
+            f'$x {dau} {-nghiem}$',
+            f'$x {dau_nguoc} {-nghiem}$',
         ]
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = ('''Tập nghiệm của bất phương trình $(x - %s)(x + %s) \\ge %s$ là''' % (a, a, vp_str))
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Nghiệm của bất phương trình $%s %s %s$ là:'
+                        %(vt_str, dau, latex(vp)
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Ta có:
-        \\begin{align*}
-        (x - %s)(x + %s) &\\ge %s \\\\
-        x^2 - %s &\\ge %s \\\\
-        %sx &\\ge %s + (%s) \\\\
-        %sx &\\ge %s \\\\
-        x &\\ge %s.
-        \\end{align*}
-        Vậy nghiệm của bất phương trình là $x \\ge %s$.'''
-        % (a, a, vp_str, a**2, vp_str, b, c, a**2, b, b*ng, ng, ng))
-    
+        # Nội dung lời giải
+        loigiai=('Ta có: '
+                 '\\begin{align*} '
+                 '%s &%s %s \\\\ '
+                 'x^2 - %s &%s %s \\\\ '
+                 '%sx &%s %s + (%s) \\\\ '
+                 '%sx &%s %s \\\\ '
+                 'x &%s %s. '
+                 '\\end{align*} '
+                 'Vậy nghiệm của bất phương trình là $x %s %s$. \n'
+                %(vt_str, dau, latex(vp), m**2, dau, latex(vp), k, dau, m**2, c, k, dau, m**2 + c, dau, nghiem, dau, nghiem
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

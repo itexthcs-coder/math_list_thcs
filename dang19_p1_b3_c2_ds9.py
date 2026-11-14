@@ -127,63 +127,65 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang19_p1_b3_c2_ds9(self):
+def bt_Dang19_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        # BPT 1: 2x + b1 > c1 <=> x > m1
-        m1 = random.choice([-4, -3, -2, -1])
-        b1 = randint(1, 5)
-        c1 = 2*m1 + b1
-        
-        # BPT 2: 3x - b2 <= c2 <=> x <= m2
-        m2 = randint(2, 5)
-        b2 = randint(1, 5)
-        c2 = 3*m2 - b2
-        
-        # m1 < x <= m2 => số lượng nghiệm nguyên là m2 - m1
-        so_ng = m2 - m1
-        tap_ng = ", ".join([str(i) for i in range(m1 + 1, m2 + 1)])
-        
-        du = [f'${so_ng}$']
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        a = random.choice([-5, -4, -3])
+        b = random.choice([7, 8, 10, 11, 13, 14])
+        c = random.choice([-4, -3, -2, -1])
+        while (c - b) % a == 0:
+            c -= 1
+            
+        nghiem_bien = Rational(c - b, a)
+        x_min = math.ceil(float(nghiem_bien))
+
+        du = [f'$x = {x_min}$']
         da = random.choice(du)
         s = [
-            f'${so_ng + 1}$',
-            f'${so_ng - 1}$',
-            f'${so_ng + 2}$',
-            f'${m2 + abs(m1) + 2}$'
+            f'$x = {x_min - 1}$',
+            f'$x = {x_min + 1}$',
+            f'$x = {x_min - 2}$',
         ]
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = ('''Có bao nhiêu số nguyên $x$ thỏa mãn đồng thời cả hai bất phương trình $2x + %s > %s$ và $3x - %s \\le %s$?'''
-                         % (b1, c1, b2, c2))
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Số nguyên dương $x$ nhỏ nhất thỏa mãn bất phương trình $%s \\le %s$ là:'
+                        %(latex(a*x + b), c
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Giải bất phương trình thứ nhất:
-        $$2x + %s > %s \\Leftrightarrow 2x > %s \\Leftrightarrow x > %s.$$
-        Giải bất phương trình thứ hai:
-        $$3x - %s \\le %s \\Leftrightarrow 3x \\le %s \\Leftrightarrow x \\le %s.$$
-        Kết hợp hai điều kiện ta được $%s < x \\le %s$.\\\\
-        Vì $x \\in \\mathbb{Z}$ nên $x \\in \\{%s\\}$. Vậy có tất cả $%s$ số nguyên thỏa mãn.'''
-        % (b1, c1, c1 - b1, m1, b2, c2, c2 + b2, m2, m1, m2, tap_ng, so_ng))
-    
+        # Nội dung lời giải
+        loigiai=('Ta có: '
+                 '\\begin{align*} '
+                 '%s &\\le %s \\\\ '
+                 '%sx &\\le %s - %s \\\\ '
+                 '%sx &\\le %s \\\\ '
+                 'x &\\ge %s \\approx %.2f. '
+                 '\\end{align*} '
+                 'Vì $x$ là số nguyên dương nhỏ nhất thỏa mãn $x \\ge %s$ nên $x = %s$. \n'
+                %(latex(a*x + b), c, a, c, b, a, c - b, latex(nghiem_bien), float(nghiem_bien), latex(nghiem_bien), x_min
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

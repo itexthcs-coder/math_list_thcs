@@ -127,63 +127,69 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang12_p1_b3_c2_ds9(self):
+def bt_Dang12_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        tu_a = random.choice([2, 3, 4, 5])
-        mau_a = random.choice([3, 5, 7])
-        a = Rational(tu_a, mau_a)
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        a_int = random.choice([2, 4, 5, 8])
+        nghiem = random.choice([2, 3, 4, 5, 6])
+        b_int = random.choice([6, 8, 12, 14, 16])
+        c_int = a_int * nghiem - b_int
         
-        tu_b = random.choice([1, 2, 4, 5])
-        mau_b = random.choice([2, 3, 9])
-        b = Rational(tu_b, mau_b)
-        
-        ng = b / a
-        ng_sai1 = -ng
-        ng_sai2 = a * b
-        ng_sai3 = a / b
-    
-        du = [f'$x < {latex(ng)}$']
+        a_str = f"0,{a_int}"
+        b_str = f"{b_int/10:.1f}".replace('.', ',')
+        c_str = f"{c_int/10:.1f}".replace('.', ',')
+        dau = random.choice(['\\le', '\\ge', '<', '>'])
+        dau_nguoc = {'<': '>', '>': '<', '\\le': '\\ge', '\\ge': '\\le'}[dau]
+        tong_vp = f"{(c_int + b_int)/10:.1f}".replace('.', ',')
+
+        du = [f'$x {dau} {nghiem}$']
         da = random.choice(du)
         s = [
-            f'$x > {latex(ng)}$',
-            f'$x < {latex(ng_sai1)}$',
-            f'$x < {latex(ng_sai2)}$',
-            f'$x < {latex(ng_sai3)}$'
+            f'$x {dau_nguoc} {nghiem}$',
+            f'$x {dau} {-nghiem}$',
+            f'$x {dau} {round((c_int - b_int)/a_int, 2)}$',
         ]
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = ('''Tập nghiệm của bất phương trình $%s x - %s < 0$ là''' % (latex(a), latex(b)))
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Nghiệm của bất phương trình $%sx - %s %s %s$ là:'
+                        %(a_str, b_str, dau, c_str
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Ta có:
-        \\begin{align*}
-        %s x - %s &< 0 \\\\
-        %s x &< %s \\\\
-        x &< %s : %s \\\\
-        x &< %s.
-        \\end{align*}
-        Vậy nghiệm của bất phương trình là $x < %s$.'''
-        % (latex(a), latex(b), latex(a), latex(b), latex(b), latex(a), latex(ng), latex(ng)))
-    
+        # Nội dung lời giải
+        loigiai=('Ta có: '
+                 '\\begin{align*} '
+                 '%sx - %s &%s %s \\\\ '
+                 '%sx &%s %s + %s \\\\ '
+                 '%sx &%s %s \\\\ '
+                 'x &%s %s : %s \\\\ '
+                 'x &%s %s. '
+                 '\\end{align*} '
+                 'Vậy nghiệm của bất phương trình là $x %s %s$. \n'
+                %(a_str, b_str, dau, c_str, a_str, dau, c_str, b_str, a_str, dau, tong_vp, dau, tong_vp, a_str, dau, nghiem, dau, nghiem
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

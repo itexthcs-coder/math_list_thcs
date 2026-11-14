@@ -127,51 +127,56 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang3_p1_b3_c2_ds9(self):
+def bt_Dang3_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        m0 = random.choice([-6, -5, -4, -3, -2, 2, 3, 4, 5, 6])
-        c = randint(1, 20)
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        a = random.choice([-9, -8, -7, -6, -5, -4, -3, -2])
+        b = random.choice([2, 3, 4, 5, 6, 7, 8, 9])
         dau = random.choice(['<', '>', '\\le', '\\ge'])
-        heso_m = f"m - {m0}" if m0 > 0 else f"m + {abs(m0)}"
-        
-        du = [f'$m \\ne {m0}$']
+
+        du = [f'$(a; b) = ({a}; {b})$']
         da = random.choice(du)
-        
         s = [
-            f'$m > {m0}$',
-            f'$m < {m0}$',
-            f'$m = {m0}$',
-            f'$m \\ne {-m0}$'
+            f'$(a; b) = ({b}; {a})$',
+            f'$(a; b) = ({-a}; {-b})$',
+            f'$(a; b) = ({a}; {-b})$',
+            f'$(a; b) = ({-a}; {b})$',
         ]
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = ('''Với giá trị nào của $m$ thì bất phương trình $(%s)x + %s %s 0$ là bất phương trình bậc nhất một ẩn $x$?'''
-                         % (heso_m, c, dau))
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Khi viết bất phương trình $%s %sx %s 0$ về dạng chuẩn $ax + b %s 0$, cặp hệ số $(a; b)$ tương ứng là:'
+                        %(b, a, dau, dau
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Để bất phương trình $(%s)x + %s %s 0$ là bất phương trình bậc nhất một ẩn $x$ thì hệ số của $x$ phải khác $0$.\\\\
-        Do đó $%s \\ne 0 \\Leftrightarrow m \\ne %s$.'''
-        % (heso_m, c, dau, heso_m, m0))
-    
+        # Nội dung lời giải
+        loigiai=('Ta viết lại bất phương trình $%s %sx %s 0$ dưới dạng $%sx + %s %s 0$.\\n'
+                 'Đối chiếu với dạng tổng quát $ax + b %s 0$, ta xác định được hệ số $a = %s$ và $b = %s$.\\n'
+                 'Vậy cặp hệ số tương ứng là $(a; b) = (%s; %s)$. \n'
+                %(b, a, dau, a, b, dau, dau, a, b, a, b
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

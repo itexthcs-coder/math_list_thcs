@@ -129,53 +129,59 @@ from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 def bt_dang1_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
         a = random.choice([-5, -4, -3, -2, 2, 3, 4, 5])
-        b = random.choice([-9, -7, -5, -3, -1, 1, 3, 5, 7, 9])
-        c = randint(1, 9)
+        b = random.choice([-7, -6, -5, -4, -2, -1, 1, 2, 4, 5, 6, 7])
+        c2 = random.choice([1, 2, 3, 4, 5])
         dau = random.choice(['<', '>', '\\le', '\\ge'])
         
-        bt_dung = latex(a*x + b)
-        bt_sai1 = latex(0*x + c) # Hệ số a = 0
-        bt_sai2 = latex(x**2 - c) # Bậc hai
-        bt_sai3 = latex(x**3 + c) # Bậc ba
-    
-        du = [f'${bt_dung} {dau} 0$']
+        bpt_dung = f"{latex(a*x + b)} {dau} 0"
+        bpt_sai1 = f"{latex(x**2 + a*x + b)} > 0"
+        bpt_sai2 = f"0x + {c2} \\le 0"
+        bpt_sai3 = f"\\frac{{{c2}}}{{x}} + {b} < 0"
+
+        du = [f'${bpt_dung}$']
         da = random.choice(du)
-        
         s = [
-            f'$0x + {c} {dau} 0$',
-            f'${bt_sai2} {dau} 0$',
-            f'${bt_sai3} {dau} 0$',
-            f'$\\dfrac{{1}}{{x}} + {c} {dau} 0$'
+            f'${bpt_sai1}$',
+            f'${bpt_sai2}$',
+            f'${bpt_sai3}$',
         ]
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = '''Bất phương trình nào sau đây là bất phương trình bậc nhất một ẩn $x$?'''
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Bất phương trình nào sau đây là bất phương trình bậc nhất một ẩn $x$?'
+                        %(
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Bất phương trình bậc nhất một ẩn $x$ có dạng $ax+b<0$ (hoặc $ax+b>0$, $ax+b\\le 0$, $ax+b\\ge 0$) với $a \\ne 0$.\\\\
-        Ta thấy bất phương trình $%s %s 0$ có hệ số $a = %s \\ne 0$ nên là bất phương trình bậc nhất một ẩn $x$.'''
-        % (bt_dung, dau, latex(a)))
-    
+        # Nội dung lời giải
+        loigiai=('Bất phương trình bậc nhất một ẩn $x$ có dạng $ax+b<0$ (hoặc $ax+b>0$; $ax+b\\le 0$; $ax+b\\ge 0$) với $a, b$ là hai số đã cho và $a \\ne 0$.\\n'
+                 'Do đó, bất phương trình bậc nhất một ẩn $x$ là $%s$ (với $a=%s \\ne 0$, $b=%s$).\\n'
+                 'Các bất phương trình còn lại không phải bất phương trình bậc nhất một ẩn vì chứa $x^2$, có hệ số $a=0$ hoặc chứa ẩn ở mẫu. \n'
+                %(bpt_dung, latex(a), latex(b)
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

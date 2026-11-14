@@ -127,59 +127,66 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang18_p1_b3_c2_ds9(self):
+def bt_Dang18_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        a = randint(2, 5)
-        b = randint(1, 9)
-        k = randint(2, 7)
-        # b - ax > b - a*k <=> -ax > -a*k <=> x < k
-        # Số nguyên lớn nhất nhỏ hơn k là k - 1
-        vp = b - a*k
-        kq = k - 1
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        a = random.choice([4, 5, 6])
+        c = random.choice([2, 3])
+        nghiem_bien = random.choice([3, 4, 5, 6, 7])
+        b = random.choice([-9, -7, -5, -3, -1])
+        d = (a - c) * nghiem_bien + b
         
-        du = [f'$x = {kq}$']
+        x_max = nghiem_bien - 1
+        vt = a*x + b
+        vp = c*x + d
+
+        du = [f'$x = {x_max}$']
         da = random.choice(du)
         s = [
-            f'$x = {k}$',
-            f'$x = {k + 1}$',
-            f'$x = {kq - 1}$',
-            f'$x = {-k}$'
+            f'$x = {nghiem_bien}$',
+            f'$x = {nghiem_bien + 1}$',
+            f'$x = {x_max - 1}$',
         ]
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = ('''Giá trị nguyên \\textbf{lớn nhất} của $x$ thỏa mãn bất phương trình $%s - %sx > %s$ là'''
-                         % (b, a, vp))
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Số nguyên $x$ lớn nhất thỏa mãn bất phương trình $%s < %s$ là:'
+                        %(latex(vt), latex(vp)
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Ta có:
-        \\begin{align*}
-        %s - %sx &> %s \\\\
-        -%sx &> %s - %s \\\\
-        -%sx &> %s \\\\
-        x &< %s.
-        \\end{align*}
-        Vì $x$ là số nguyên và $x < %s$ nên giá trị nguyên lớn nhất của $x$ là $x = %s$.'''
-        % (b, a, vp, a, vp, b, a, -a*k, k, k, kq))
-    
+        # Nội dung lời giải
+        loigiai=('Ta có: '
+                 '\\begin{align*} '
+                 '%s &< %s \\\\ '
+                 '%sx - %sx &< %s - (%s) \\\\ '
+                 '%sx &< %s \\\\ '
+                 'x &< %s. '
+                 '\\end{align*} '
+                 'Vì $x$ là số nguyên và $x < %s$ nên số nguyên $x$ lớn nhất thỏa mãn là $x = %s$. \n'
+                %(latex(vt), latex(vp), a, c, d, b, a - c, d - b, nghiem_bien, nghiem_bien, x_max
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

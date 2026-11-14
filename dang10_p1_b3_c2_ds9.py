@@ -127,54 +127,61 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang10_p1_b3_c2_ds9(self):
+def bt_Dang10_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        k = random.choice([-5, -4, -3, -2, -1, 1, 2, 3, 4, 5])
-        loai = random.choice(['le', 'ge', 'lt', 'gt'])
-        
-        if loai == 'le':
-            mota = f"lấy phần bên trái điểm ${k}$ và tại điểm ${k}$ dùng dấu ngoặc vuông $]$"
-            da = f"$x \\le {k}$"
-            giai = f"Phần bên trái điểm ${k}$ biểu diễn các số nhỏ hơn ${k}$, dấu ngoặc vuông $]$ biểu thị lấy cả giá trị ${k}$ nên tập nghiệm là $x \\le {k}$."
-        elif loai == 'ge':
-            mota = f"lấy phần bên phải điểm ${k}$ và tại điểm ${k}$ dùng dấu ngoặc vuông $[$"
-            da = f"$x \\ge {k}$"
-            giai = f"Phần bên phải điểm ${k}$ biểu diễn các số lớn hơn ${k}$, dấu ngoặc vuông $[$ biểu thị lấy cả giá trị ${k}$ nên tập nghiệm là $x \\ge {k}$."
-        elif loai == 'lt':
-            mota = f"lấy phần bên trái điểm ${k}$ và tại điểm ${k}$ dùng dấu ngoặc tròn $)$"
-            da = f"$x < {k}$"
-            giai = f"Phần bên trái điểm ${k}$ biểu diễn các số nhỏ hơn ${k}$, dấu ngoặc tròn $)$ biểu thị không lấy giá trị ${k}$ nên tập nghiệm là $x < {k}$."
-        else:
-            mota = f"lấy phần bên phải điểm ${k}$ và tại điểm ${k}$ dùng dấu ngoặc tròn $($"
-            da = f"$x > {k}$"
-            giai = f"Phần bên phải điểm ${k}$ biểu diễn các số lớn hơn ${k}$, dấu ngoặc tròn $($ biểu thị không lấy giá trị ${k}$ nên tập nghiệm là $x > {k}$."
-    
-        all_opts = [f"$x \\le {k}$", f"$x \\ge {k}$", f"$x < {k}$", f"$x > {k}$"]
-        all_opts.remove(da)
-        das1, das2, das3 = all_opts[0], all_opts[1], all_opts[2]
-    
-        noidungcauhoi = ('''Trên trục số, hình biểu diễn tập nghiệm %s tương ứng với bất phương trình nào sau đây?''' % mota)
-        da_d = ('\\True ' + str(da))
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        a = random.choice([-6, -5, -4, -3, -2])
+        nghiem = random.choice([-6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6])
+        b = -a * nghiem
+        dau = random.choice(['<', '>', '\\le', '\\ge'])
+        dau_kq = {'<': '>', '>': '<', '\\le': '\\ge', '\\ge': '\\le'}[dau]
+
+        du = [f'$x {dau_kq} {nghiem}$']
+        da = random.choice(du)
+        s = [
+            f'$x {dau} {nghiem}$',
+            f'$x {dau_kq} {-nghiem}$',
+            f'$x {dau} {-nghiem}$',
+        ]
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
+        das3 = random.choice(s)
+        # Câu hỏi
+        noidungcauhoi = ('Nghiệm của bất phương trình $%s %s 0$ là:'
+                        %(latex(a*x + b), dau
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = giai
-    
+        # Nội dung lời giải
+        loigiai=('Ta có: '
+                 '\\begin{align*} '
+                 '%s &%s 0 \\\\ '
+                 '%sx &%s %s \\\\ '
+                 'x &%s %s \\quad (\\text{chia hai vế cho số âm } %s \\text{ nên đổi chiều}). '
+                 '\\end{align*} '
+                 'Vậy nghiệm của bất phương trình là $x %s %s$. \n'
+                %(latex(a*x + b), dau, a, dau, -b, dau_kq, nghiem, a, dau_kq, nghiem
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

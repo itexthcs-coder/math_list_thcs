@@ -127,59 +127,75 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang16_p1_b3_c2_ds9(self):
+def bt_Dang16_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        # (x - a)/2 - (2x + b)/3 > c
-        a = randint(1, 5)
-        b = randint(1, 5)
-        c = randint(1, 3)
-        # 3(x - a) - 2(2x + b) > 6c <=> -x - 3a - 2b > 6c <=> x < -6c - 3a - 2b
-        ng = -6*c - 3*a - 2*b
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        m1, m2 = random.choice([(2, 3), (3, 4), (2, 5), (3, 5)])
+        a1 = random.choice([2, 3])
+        b1 = random.choice([-5, -3, -1, 1, 3])
+        a2 = random.choice([1, 2])
         
-        du = [f'$x < {ng}$']
+        while True:
+            b2 = random.choice([-6, -4, -3, -2, -1, 1, 2, 3, 4, 6])
+            tu = m1 * b2 - m2 * b1
+            mau = m2 * a1 - m1 * a2
+            if mau > 0 and tu % mau == 0:
+                nghiem = tu // mau
+                break
+
+        dau = random.choice(['>', '<', '\\ge', '\\le'])
+        dau_nguoc = {'<': '>', '>': '<', '\\le': '\\ge', '\\ge': '\\le'}[dau]
+        bc = m1 * m2
+
+        du = [f'$x {dau} {nghiem}$']
         da = random.choice(du)
         s = [
-            f'$x > {ng}$',
-            f'$x < {-ng}$',
-            f'$x < {-c - 3*a - 2*b}$',
-            f'$x > {-c - 3*a - 2*b}$'
+            f'$x {dau_nguoc} {nghiem}$',
+            f'$x {dau} {-nghiem}$',
+            f'$x {dau} {nghiem + 2}$',
         ]
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = ('''Nghiệm của bất phương trình $\\dfrac{x - %s}{2} - \\dfrac{2x + %s}{3} > %s$ là'''
-                         % (a, b, c))
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Nghiệm của bất phương trình $\\frac{%s}{%s} %s \\frac{%s}{%s}$ là:'
+                        %(latex(a1*x + b1), m1, dau, latex(a2*x + b2), m2
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Nhân cả hai vế của bất phương trình với $6 > 0$, ta được:
-        \\begin{align*}
-        3(x - %s) - 2(2x + %s) &> %s \\\\
-        3x - %s - 4x - %s &> %s \\\\
-        -x - %s &> %s \\\\
-        -x &> %s \\\\
-        x &< %s.
-        \\end{align*}
-        Vậy nghiệm của bất phương trình là $x < %s$.'''
-        % (a, b, 6*c, 3*a, 2*b, 6*c, 3*a + 2*b, 6*c, 6*c + 3*a + 2*b, ng, ng))
-    
+        # Nội dung lời giải
+        loigiai=('Nhân cả hai vế của bất phương trình với $%s > 0$, ta được: '
+                 '\\begin{align*} '
+                 '%s(%s) &%s %s(%s) \\\\ '
+                 '%s &%s %s \\\\ '
+                 '%sx &%s %s \\\\ '
+                 'x &%s %s. '
+                 '\\end{align*} '
+                 'Vậy nghiệm của bất phương trình là $x %s %s$. \n'
+                %(bc, m2, latex(a1*x + b1), dau, m1, latex(a2*x + b2),
+                  latex(m2*(a1*x + b1)), dau, latex(m1*(a2*x + b2)),
+                  mau, dau, tu, dau, nghiem, dau, nghiem
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

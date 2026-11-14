@@ -127,54 +127,77 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang20_p1_b3_c2_ds9(self):
+def bt_Dang20_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        # Phương trình: x + k*m = c*m0 - m  (với c = k + 1 => x = (k+1)*(m0 - m))
-        k = randint(1, 3)
-        m0 = random.choice([-3, -2, -1, 1, 2, 3])
-        vp_const = (k + 1)*m0
-        # Nghiệm x = vp_const - (k + 1)m. Yêu cầu x > 0 <=> (k + 1)m < vp_const <=> m < m0
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        a1 = random.choice([2, 3])
+        a2 = random.choice([5, 6, 7])
+        nghiem = random.choice([-4, -3, -2, -1, 1, 2, 3, 4])
+        b1 = random.choice([-7, -5, -3, -1, 1, 3, 5])
+        b2 = (a1 - a2) * nghiem + b1
         
-        du = [f'$m < {m0}$']
+        cum_tu = random.choice(['không lớn hơn', 'không nhỏ hơn'])
+        if cum_tu == 'không lớn hơn':
+            dau_de = '\\le'
+            dau_kq = '\\ge'
+            dau_sai1 = '\\le'
+            dau_sai2 = '>'
+        else:
+            dau_de = '\\ge'
+            dau_kq = '\\le'
+            dau_sai1 = '\\ge'
+            dau_sai2 = '<'
+
+        btA = a1*x + b1
+        btB = a2*x + b2
+
+        du = [f'$x {dau_kq} {nghiem}$']
         da = random.choice(du)
         s = [
-            f'$m > {m0}$',
-            f'$m \\le {m0}$',
-            f'$m < {-m0}$',
-            f'$m > {-m0}$'
+            f'$x {dau_sai1} {nghiem}$',
+            f'$x {dau_sai2} {nghiem}$',
+            f'$x {dau_kq} {-nghiem}$',
         ]
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        pt_str = f"x + {k}m = {vp_const} - m" if k > 1 else f"x + m = {vp_const} - m"
-        noidungcauhoi = ('''Với giá trị nào của $m$ thì phương trình $%s$ có nghiệm $x$ thỏa mãn $x > 0$?''' % pt_str)
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Tìm tất cả các giá trị của $x$ sao cho giá trị của biểu thức $A = %s$ %s giá trị của biểu thức $B = %s$:'
+                        %(latex(btA), cum_tu, latex(btB)
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Ta giải phương trình theo tham số $m$:
-        $$%s \\Leftrightarrow x = %s - %sm.$$
-        Để phương trình có nghiệm $x > 0$ thì:
-        $$%s - %sm > 0 \\Leftrightarrow -%sm > -%s \\Leftrightarrow m < %s.$$
-        Vậy $m < %s$ là giá trị cần tìm.'''
-        % (pt_str, vp_const, k + 1, vp_const, k + 1, k + 1, vp_const, m0, m0))
-    
+        # Nội dung lời giải
+        loigiai=('Để giá trị của biểu thức $A$ %s giá trị của biểu thức $B$, ta có bất phương trình: '
+                 '\\begin{align*} '
+                 '%s &%s %s \\\\ '
+                 '%sx - %sx &%s %s - (%s) \\\\ '
+                 '%sx &%s %s \\\\ '
+                 'x &%s %s. '
+                 '\\end{align*} '
+                 'Vậy giá trị cần tìm là $x %s %s$. \n'
+                %(cum_tu, latex(btA), dau_de, latex(btB), a1, a2, dau_de, b2, b1, a1 - a2, dau_de, b2 - b1, dau_kq, nghiem, dau_kq, nghiem
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

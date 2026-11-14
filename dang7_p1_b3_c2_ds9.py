@@ -127,49 +127,56 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang7_p1_b3_c2_ds9(self):
+def bt_Dang7_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        b = randint(2, 12)
-        c = random.choice([-9, -7, -5, -3, 3, 5, 7, 9])
-        vp_moi = c + b
-        
-        du = [f'$x \\ge {vp_moi}$']
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        a = random.choice([2, 3, 4, 5, 7])
+        b = random.choice([3, 4, 5, 6, 8, 9])
+        c = random.choice([2, 4, 5, 7, 10])
+        dau = random.choice(['>', '<', '\\ge', '\\le'])
+        dau_nguoc = {'<': '>', '>': '<', '\\le': '\\ge', '\\ge': '\\le'}[dau]
+
+        du = [f'${a}x {dau} {c} + {b}$']
         da = random.choice(du)
         s = [
-            f'$x \\le {vp_moi}$',
-            f'$x \\ge {c - b}$',
-            f'$x \\le {c - b}$',
-            f'$x > {vp_moi}$'
+            f'${a}x {dau} {c} - {b}$',
+            f'${a}x {dau_nguoc} {c} + {b}$',
+            f'${a}x {dau_nguoc} {c} - {b}$',
         ]
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = ('''Cộng vào hai vế của bất phương trình $x - %s \\ge %s$ với số $%s$, ta được bất phương trình nào?'''
-                         % (b, c, b))
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Khi chuyển hạng tử $-%s$ từ vế trái sang vế phải của bất phương trình $%sx - %s %s %s$, ta được bất phương trình nào sau đây?'
+                        %(b, a, b, dau, c
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Cộng vào hai vế của bất phương trình $x - %s \\ge %s$ với số $%s$, ta được:
-        $$x - %s + %s \\ge %s + %s \\Leftrightarrow x \\ge %s.$$'''
-        % (b, c, b, b, b, c, b, vp_moi))
-    
+        # Nội dung lời giải
+        loigiai=('Sử dụng tính chất liên hệ giữa thứ tự và phép cộng, cộng vào hai vế của bất phương trình $%sx - %s %s %s$ với $%s$ (hay chuyển hạng tử $-%s$ sang vế phải và đổi dấu thành $+%s$), ta được: '
+                 '$$%sx %s %s + %s.$$ \n'
+                %(a, b, dau, c, b, b, b, a, dau, c, b
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

@@ -127,62 +127,70 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang14_p1_b3_c2_ds9(self):
+def bt_Dang14_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        k = randint(2, 4)
-        m = random.choice([-4, -3, -2, 2, 3, 4])
-        c = randint(1, 7)
-        a2 = k + randint(2, 4)
-        ng = random.choice([-3, -2, -1, 1, 2, 3])
-        # k(x + m) + c <= a2*x + d => (k - a2)*ng = d - k*m - c
-        d = (k - a2)*ng + k*m + c
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        k = random.choice([2, 3, 4])
+        m = random.choice([-3, -2, -1, 1, 2, 3])
+        c = random.choice([1, 2, 3, 4, 5])
+        a_vp = k + random.choice([1, 2, 3])
+        nghiem = random.choice([-3, -2, -1, 1, 2, 3])
+        b_vp = (k - a_vp) * nghiem + k * m + c
         
+        dau = random.choice(['\\le', '\\ge', '<', '>'])
+        dau_kq = {'<': '>', '>': '<', '\\le': '\\ge', '\\ge': '\\le'}[dau]
+
         vt_str = f"{k}({latex(x + m)}) + {c}"
-        vp_str = latex(a2*x + d)
-        vt_rutgon = latex(expand(k*(x + m) + c))
-        
-        du = [f'$x \\ge {ng}$']
+        vp = a_vp*x + b_vp
+
+        du = [f'$x {dau_kq} {nghiem}$']
         da = random.choice(du)
         s = [
-            f'$x \\le {ng}$',
-            f'$x \\ge {-ng}$',
-            f'$x \\le {-ng}$',
-            f'$x > {ng}$'
+            f'$x {dau} {nghiem}$',
+            f'$x {dau_kq} {-nghiem}$',
+            f'$x {dau} {-nghiem}$',
         ]
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = ('''Giải bất phương trình $%s \\le %s$, ta được nghiệm là''' % (vt_str, vp_str))
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Giải bất phương trình $%s %s %s$, ta thu được nghiệm là:'
+                        %(vt_str, dau, latex(vp)
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Ta có:
-        \\begin{align*}
-        %s &\\le %s \\\\
-        %s &\\le %s \\\\
-        %sx &\\le %s \\\\
-        x &\\ge %s.
-        \\end{align*}
-        Vậy nghiệm của bất phương trình là $x \\ge %s$.'''
-        % (vt_str, vp_str, vt_rutgon, vp_str, k - a2, d - (k*m + c), ng, ng))
-    
+        # Nội dung lời giải
+        loigiai=('Ta có: '
+                 '\\begin{align*} '
+                 '%s &%s %s \\\\ '
+                 '%s + %s &%s %s \\\\ '
+                 '%sx - %sx &%s %s - (%s) \\\\ '
+                 '%sx &%s %s \\\\ '
+                 'x &%s %s. '
+                 '\\end{align*} '
+                 'Vậy nghiệm của bất phương trình là $x %s %s$. \n'
+                %(vt_str, dau, latex(vp), latex(k*x + k*m), c, dau, latex(vp), k, a_vp, dau, b_vp, k*m + c, k - a_vp, dau, b_vp - (k*m + c), dau_kq, nghiem, dau_kq, nghiem
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

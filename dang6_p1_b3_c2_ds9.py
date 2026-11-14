@@ -127,48 +127,58 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang6_p1_b3_c2_ds9(self):
+def bt_Dang6_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
-        a = randint(2, 5)
-        k = randint(2, 6)
-        b = randint(1, 9)
-        vp = a*k + b
-        # Bất phương trình: ax + b < vp <=> x < k
-        # Số k không phải là nghiệm vì a*k + b < vp là khẳng định sai
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
+        a = random.choice([2, 3, 4])
+        x_bien = random.choice([1, 2, 3, 4])
+        b = random.choice([-7, -5, -3, -1, 1, 3, 5])
+        c = a * x_bien + b
         
-        du = [f'${k}$']
+        x_sai = x_bien + random.choice([1, 2, 3])
+        x_d1 = x_bien
+        x_d2 = x_bien - 1
+        x_d3 = x_bien - 3
+
+        du = [f'${x_sai}$']
         da = random.choice(du)
-        s = [f'${k - 1}$', f'${k - 2}$', f'${k - 4}$', f'${k - 5}$']
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+        s = [f'${x_d1}$', f'${x_d2}$', f'${x_d3}$']
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = ('''Trong các số sau, số nào \\textbf{không} phải là nghiệm của bất phương trình $%sx + %s < %s$?'''
-                         % (a, b, vp))
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Trong các số sau, số nào \\textbf{không} là nghiệm của bất phương trình $%s \\le %s$?'
+                        %(latex(a*x + b), c
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        loigiai = ('''Thay $x = %s$ vào vế trái của bất phương trình, ta được:
-        $$%s \\cdot %s + %s = %s$$
-        Vì $%s < %s$ là khẳng định sai nên số $%s$ không phải là nghiệm của bất phương trình đã cho.'''
-        % (k, a, k, b, vp, vp, vp, k))
-    
+        # Nội dung lời giải
+        loigiai=('Thay $x = %s$ vào bất phương trình $%s \\le %s$, ta được: '
+                 '$$%s \\cdot %s + (%s) = %s \\le %s$$ '
+                 'Đây là một khẳng định sai vì $%s > %s$.\\n'
+                 'Do đó số $%s$ không phải là nghiệm của bất phương trình đã cho. \n'
+                %(x_sai, latex(a*x + b), c, a, x_sai, b, a*x_sai + b, c, a*x_sai + b, c, x_sai
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content

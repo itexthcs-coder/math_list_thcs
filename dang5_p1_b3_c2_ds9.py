@@ -127,54 +127,60 @@ from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
-def bt_dang5_p1_b3_c2_ds9(self):
+def bt_Dang5_p1_b3_c2_ds9(self):
     # Khai báo biến
-    lisdang = ['1']
-    dang = random.choice(lisdang)
-    
-    if dang == '1':
+    lisdang=['1']
+    dang=random.choice(lisdang)
+    if dang=='1':
         x0 = random.choice([-4, -3, -2, -1, 1, 2, 3, 4])
-        a = random.choice([-4, -3, -2, 2, 3, 4])
-        val = a * x0
-        
-        # BPT đúng: a*x > val - 2 (vì val > val - 2 luôn đúng)
-        b_dung = -(val - 2)
-        bpt_dung = f"${latex(a*x + b_dung)} > 0$"
-        
-        # 3 BPT sai
-        bpt_sai1 = f"${latex(a*x - val)} > 0$"       # val > val (sai)
-        bpt_sai2 = f"${latex(a*x - (val + 3))} > 0$" # val > val + 3 (sai)
-        bpt_sai3 = f"${latex(-a*x + val)} < 0$"      # 0 < 0 (sai)
-    
-        du = [bpt_dung]
+        a_d = random.choice([2, 3, 4])
+        b_d = random.choice([-5, -3, 1, 4, 5])
+        val_d = a_d * x0 + b_d
+        c_d = val_d + random.choice([2, 3, 5])
+        bpt_d = f"{latex(a_d*x + b_d)} < {c_d}"
+
+        bpt_s1 = f"{latex(2*x - 2*x0 + 3)} \\le 0"
+        bpt_s2 = f"{latex(-3*x + 3*x0 - 2)} > 0"
+        bpt_s3 = f"{latex(4*x - 4*x0 + 1)} \\ge 5"
+
+        du = [f'${bpt_d}$']
         da = random.choice(du)
-        s = [bpt_sai1, bpt_sai2, bpt_sai3]
-        das1 = random.choice(s); s.remove(das1)
-        das2 = random.choice(s); s.remove(das2)
+        s = [f'${bpt_s1}$', f'${bpt_s2}$', f'${bpt_s3}$']
+
+        das1 = random.choice(s)
+        s.remove(das1)
+        das2 = random.choice(s)
+        s.remove(das2)
         das3 = random.choice(s)
-    
-        noidungcauhoi = ('''Giá trị $x = %s$ là một nghiệm của bất phương trình nào dưới đây?''' % x0)
-        da_d = ('\\True ' + str(da))
+        # Câu hỏi
+        noidungcauhoi = ('Giá trị $x = %s$ là một nghiệm của bất phương trình nào sau đây?'
+                        %(x0
+                        ))
+        # Các đáp án
+        da_d = ('\\True ' +str(da))
         da_s1 = str(das1)
-        da_s2 = str(das2)
-        da_s3 = str(das3)
-    
-        list_1 = [da_d, da_s1, da_s2, da_s3]
+        da_s2 = str(das2) 
+        da_s3 = str(das3) 
+        # Đưa các đáp án vào 1 danh sách chọn ngẫu nhiên
+        list_1 = [da_d,da_s1,da_s2,da_s3]
         random.shuffle(list_1)
-    
-        vt_thay = (a*x + b_dung).subs(x, x0)
-        loigiai = ('''Thay $x = %s$ vào bất phương trình $%s > 0$, ta được:
-        $$%s \\cdot (%s) + (%s) = %s > 0$$
-        Đây là một khẳng định đúng nên $x = %s$ là nghiệm của bất phương trình $%s > 0$.'''
-        % (x0, latex(a*x + b_dung), a, x0, b_dung, vt_thay, x0, latex(a*x + b_dung)))
-    
+        # Nội dung lời giải
+        loigiai=('Thay $x = %s$ vào bất phương trình $%s$, ta được: '
+                 '$$%s \\cdot (%s) + (%s) = %s < %s$$ '
+                 'Đây là một khẳng định đúng.\\n'
+                 'Khi thay $x = %s$ vào các bất phương trình còn lại, ta đều nhận được khẳng định sai.\\n'
+                 'Vậy $x = %s$ là nghiệm của bất phương trình $%s$. \n'
+                %(x0, bpt_d, a_d, x0, b_d, val_d, c_d, x0, x0, bpt_d
+                ))
+
     # Xuất câu trắc nghiệm
     content = ('\\begin{minipage}{\\textwidth} \n'
-               '\\begin{ex}\n' + str(noidungcauhoi) + '\\choice \n'
-               '{' + str(list_1[1]) + '}\n'
-               '{' + str(list_1[2]) + '}\n'
-               '{' + str(list_1[3]) + '}\n'
-               '{' + str(list_1[0]) + '}\n'
-               '\\loigiai{' + str(loigiai) + '}\n'
-               '\\end{ex}\n \\end{minipage} \n\n')
+        '\\begin{ex}\n'+ str(noidungcauhoi)+ 
+        '\\choice \n'
+        '{'+str(list_1[1])+'}\n'
+        '{'+str(list_1[2])+'}\n'
+        '{'+str(list_1[3])+'}\n'
+        '{'+str(list_1[0])+'}\n'
+        '\\loigiai{'+str(loigiai)+'}\n'
+        '\\end{ex}\n \\end{minipage} \n\n')
     return content
