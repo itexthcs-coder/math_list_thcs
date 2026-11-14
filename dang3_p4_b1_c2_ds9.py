@@ -129,9 +129,9 @@ from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 def bt_dang3_p4_b1_c2_ds9(self):
     # Khai báo biến
-    lisdang=['1']
-    dang=random.choice(lisdang)
-    if dang=='1':
+    lisdang = ['1']
+    dang = random.choice(lisdang)
+    if dang == '1':
         x = symbols('x')
         while True:
             a = random.choice([1, 2, 3])
@@ -146,7 +146,7 @@ def bt_dang3_p4_b1_c2_ds9(self):
     
         # Nội dung câu hỏi
         noidungcauhoi = ('''Giải phương trình: $%s = 0$.'''
-                         %(latex(pt)))
+                         % (latex(pt)))
     
         # Nội dung lời giải
         loigiai = ('''Biến đổi vế trái thành nhân tử bằng cách tách hạng tử $-%sx^2 = -%sx^2 - %sx^2$: \\\\
@@ -157,17 +157,16 @@ def bt_dang3_p4_b1_c2_ds9(self):
                    $(x - %s)(x + %s)(x - %s)(x + %s) = 0$. \\\\
                    Giải bốn phương trình bậc nhất $x - %s = 0$, $x + %s = 0$, $x - %s = 0$, $x + %s = 0$, ta tìm được bốn nghiệm là $x = %s$, $x = %s$, $x = %s$, $x = %s$. \\\\
                    Vậy tập nghiệm của phương trình đã cho là $S = \\left\\{%s; %s; %s; %s\\right\\}$.'''
-                   %(latex(pt),
-                     latex(tong_bp), latex(a**2), latex(b**2),
-                     latex(pt),
-                     latex(a**2), latex(b**2), latex(tich_bp),
-                     latex(a**2), latex(b**2), latex(a**2),
-                     latex(a**2), latex(b**2),
-                     latex(a), latex(a), latex(b), latex(b),
-                     latex(a), latex(a), latex(b), latex(b),
-                     latex(a), latex(-a), latex(b), latex(-b),
-                     latex(-b), latex(-a), latex(a), latex(b)))
+                   % (latex(tong_bp), latex(a**2), latex(b**2),
+                      latex(pt),
+                      latex(a**2), latex(b**2), latex(tich_bp),
+                      latex(a**2), latex(b**2), latex(a**2),
+                      latex(a**2), latex(b**2),
+                      latex(a), latex(a), latex(b), latex(b),
+                      latex(a), latex(a), latex(b), latex(b),
+                      latex(a), latex(-a), latex(b), latex(-b),
+                      latex(-b), latex(-a), latex(a), latex(b)))
     
-    content = ('\\begin{minipage}{\\textwidth} \n' '\\begin{ex}\n'+ str(noidungcauhoi)+ '\\loigiai{ \n' +str(loigiai)+'}\n' '\\end{ex}\n \\end{minipage} \n\n')
+    content = ('\\begin{minipage}{\\textwidth} \n' + '\\begin{ex}\n' + str(noidungcauhoi) + '\\loigiai{ \n' + str(loigiai) + '}\n' + '\\end{ex}\n \\end{minipage} \n\n')
 
     return content
