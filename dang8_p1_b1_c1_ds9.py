@@ -128,6 +128,8 @@ from mpl_toolkits.mplot3d import Axes3D  # Cần cho 3D
 
 
 def bt_dang8_p1_b1_c1_ds9(self):
+    lisdang=['1']
+    dang=random.choice(lisdang)
     if dang == '1':
         # Tạo phương trình dạng 0x + by = c (với b != 0, c != 0)
         b = random.choice([2, 3, 4, 5, -2, -3, -4, -5])
