@@ -215,7 +215,7 @@ def bt_dang22_p2_b1_c1_ds9(self):
     
     list_vdc_1 = [vdc_da_1]
     
-    loigiai_vdc_1 = ('''Trong hình chữ nhật, chiều dài $x$ bắt buộc phải lớn hơn chiều rộng $y$ ($x > y$). \\\\ Nếu lấy cặp số $(%s; %s)$ thì $x = %s$ và $y = %s$, khi đó $x < y$ (chiều dài lại nhỏ hơn chiều rộng), điều này không hợp lý trong thực tế. \\\\ Do đó, cặp số $(%s; %s)$ không phải là cặp kích thước hợp lý của mảnh vườn.''' % (x_inv, y_inv, x_inv, y_inv, x_inv, y_inv, x_inv, y_inv))
+    loigiai_vdc_1 = ('''Trong hình chữ nhật, chiều dài $x$ bắt buộc phải lớn hơn chiều rộng $y$ ($x > y$). \\\\ Nếu lấy cặp số $(%s; %s)$ thì $x = %s$ và $y = %s$, khi đó $x < y$ (chiều dài lại nhỏ hơn chiều rộng), điều này không hợp lý trong thực tế. \\\\ Do đó, cặp số $(%s; %s)$ không phải là cặp kích thước hợp lý của mảnh vườn.''' % (x_inv, y_inv, x_inv, y_inv, x_inv, y_inv))
     
     list_vdc_2 = [loigiai_vdc_1]
     
